@@ -1,0 +1,21 @@
+.navBar{
+    width:100vh;
+    height: 75px;
+    background-color: #2b2e2e;
+    padding-left:4%
+}
+
+.logo{
+    width:50px;
+    margin-left: 13px;
+}
+
+.layout{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
+.icon{
+    width:20px;
+    margin-left:-2px;
+}
