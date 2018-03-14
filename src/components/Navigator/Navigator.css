@@ -1,13 +1,16 @@
-.navBar{
-    width:100vh;
-    height: 75px;
-    background-color: #2b2e2e;
-    padding-left:4%
+.navbar{
+    width:70px;
+    background-color: #3A1C76;
+    position: absolute;
 }
 
 .logo{
-    width:50px;
-    margin-left: 13px;
+    margin: 15px 0px 20px 0px;
+    color:#fff;
+    text-align: center;
+    width:100%;
+    font-weight:900;
+    font-size:1em;
 }
 
 .layout{
@@ -17,5 +20,5 @@
 
 .icon{
     width:20px;
-    margin-left:-2px;
+    margin: 15px 25px 15px 25px;
 }

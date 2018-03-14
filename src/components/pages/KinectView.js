@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import Header from '../Header/Header'
 
 var HANDSIZE = 20;
 var HANDCLOSEDCOLOR = "red";
@@ -64,6 +65,7 @@ class KinectView extends Component {
     render() {
         return (
             <div>
+                <Header title='Kinect Skeleton View' />
                 <canvas id="bodyCanvas" width="512" height="424"></canvas>
             </div>
         );
