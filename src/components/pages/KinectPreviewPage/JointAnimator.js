@@ -15,7 +15,7 @@ class JointAnimator extends Component {
         ctx = canvas.getContext('2d');
     }
 
-    drawBodyFrame(bodyFrame) {
+    drawBodyFrame = (bodyFrame) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
             if (body.tracked) {
@@ -30,7 +30,7 @@ class JointAnimator extends Component {
 
     render() {
         return (
-            <Card title="Preview" className="jointAnimator" >
+            <Card title="Preview" className="joint-animator" >
                 <canvas id="bodyCanvas"
                     width={width.toString()}
                     height={height.toString()} />

@@ -1,43 +1,53 @@
 import React, { Component } from 'react';
 import Header from '../../Header/Header';
 import JointAnimator from './JointAnimator';
+import KinectNotFound from './KinectNotFound';
 import { Row } from 'antd';
 import './KinectPreviewPage.css';
 
 const io = require('socket.io-client');
-var jointAnimator;
+
+var content;
 
 class KinectPreviewPage extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            kinectIsConnected: false,
+        };
+
+        this.startConnection = this.startConnection.bind(this);
+    }
 
     componentDidMount() {
-        jointAnimator = this.refs.jointAnimator;
         this.startConnection();
     }
 
-
     // Connect to kinect server
-    startConnection() {
+    startConnection = () => {
         var socket = io.connect('127.0.0.1:8000');
         socket.on('bodyFrame', function (bodyFrame) {
-            jointAnimator.drawBodyFrame(bodyFrame);
-        });
+            this.setState({ kinectIsConnected: true });
+            this.refs.jointAnimator.drawBodyFrame(bodyFrame);
+        }.bind(this));
     }
 
     render() {
+        if (this.state.kinectIsConnected) {
+            content = <JointAnimator ref="jointAnimator" />
+        } else {
+            content = <KinectNotFound />
+        }
         return (
-            <div>
-                <Row type="flex" justify="center">
+            <Row type="flex" justify="center">
 
-                    <Header title="Kinect Live Preview" />
+                <Header title="Kinect Live Preview" />
 
-                    <JointAnimator ref="jointAnimator" />
+                {content}
 
-                </Row>
-            </div >
+            </Row>
         );
     }
 }
