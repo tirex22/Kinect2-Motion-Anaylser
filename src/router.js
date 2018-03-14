@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom'
 
-import DatasetsPage from './components/pages/KinectView'
-import KinectView from './components/pages/KinectView';
+import DatasetsPage from './components/pages/KinectPreviewPage/KinectPreviewPage';
+import KinectView from './components/pages/KinectPreviewPage/KinectPreviewPage';
 
 
 

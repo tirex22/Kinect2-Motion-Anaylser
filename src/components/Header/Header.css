@@ -1,13 +1,14 @@
 .header{
     height:107px;
-    background-color: rgba(0,0,0,0.01);
+    margin-bottom: 20px;
+    padding-left:4%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .title{
-    font-family: 'Roboto', sans-serif;
     font-size: 2em;
-    font-weight: 900;
-    color:rgba(0,0,0,0.1);
+    font-weight: 100;
+    color:rgba(0,0,0,0,1);
     float:right;
     margin-right:35px;
     margin-top:30px;

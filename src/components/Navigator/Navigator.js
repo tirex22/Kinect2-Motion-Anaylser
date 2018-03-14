@@ -1,56 +1,37 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Icon, Affix, Button } from 'antd';
-import { Link, HashRouter } from 'react-router-dom'
+import { Layout, Affix } from 'antd';
+import kinectIcon from '../../assets/lens.png';
+import datasetsIcon from '../../assets/datasets.png';
 import './Navigator.css';
-import kinectIcon from '../../assets/lens.png'
-import datasetsIcon from '../../assets/datasets.png'
-import logo from '../../assets/logo.png'
-
-const { Sider } = Layout;
 
 export default class Navigator extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            collapsed: true,
             alignTabs: 'right',
         }
     }
 
-    toggle = () => {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    }
-
-    onCollapse = (collapsed) => {
-        this.setState({ collapsed });
-    }
-
     render() {
         return (
-            <Layout className="layout">
+            <Layout className="layout" style={{ backgroundColor: '#f8f8f8' }}>
+                <Affix>
+                    <div className="navbar" style={{ height: window.innerHeight - 1 }} >
+                        <p className="logo" >KINECT</p>
 
+                        <a href="/">
+                            <img alt="" src={kinectIcon} className="icon" />
+                        </a>
 
-                <HashRouter>
-                    <Affix>
-                        <div className="navbar" style={{ height: window.innerHeight - 1 }} >
-                            <p className="logo" >KINECT</p>
-
-                            <a href="/">
-                                <img src={kinectIcon} className="icon" />
-                            </a>
-
-                            <a href="/">
-                                <img src={datasetsIcon} className="icon" />
-                            </a>
-
-
-                        </div>
-                    </Affix>
-                </HashRouter>
-                {this.props.children}
+                        <a href="/">
+                            <img alt="" src={datasetsIcon} className="icon" />
+                        </a>
+                    </div>
+                </Affix>
+                <div style={{ paddingLeft: 70 }} >
+                    {this.props.children}
+                </div>
             </Layout >
         );
     }
