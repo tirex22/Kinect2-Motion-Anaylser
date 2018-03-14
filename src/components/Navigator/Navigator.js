@@ -18,7 +18,7 @@ export default class Navigator extends Component {
             <Layout className="layout" style={{ backgroundColor: '#f8f8f8' }}>
                 <Affix>
                     <div className="navbar" style={{ height: window.innerHeight - 1 }} >
-                        <p className="logo" >KINECT</p>
+                        {/* <p className="logo" >KINECT</p> */}
 
                         <a href="/">
                             <img alt="" src={kinectIcon} className="icon" />

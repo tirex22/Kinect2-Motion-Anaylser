@@ -1,8 +1,10 @@
 .navbar{
     width:70px;
-    background-color: #3A1C76;
+    /* background-color: #3A1C76; */
+    background-color: #333;
     position: absolute;
     margin-right: 70px;
+    padding-top:10px;
 }
 
 .logo{
