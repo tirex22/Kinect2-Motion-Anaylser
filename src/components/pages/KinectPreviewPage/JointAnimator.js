@@ -60,7 +60,7 @@ class JointAnimator extends Component {
 
     render() {
         return (
-            <Card title="Preview" className="joint-animator" >
+            <Card title={this.props.title} className="joint-animator" >
                 <canvas id="bodyCanvas"
                     width={width.toString()}
                     height={height.toString()} />

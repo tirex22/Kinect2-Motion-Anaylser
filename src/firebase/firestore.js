@@ -48,6 +48,20 @@ function createDataset(name, callback) {
 }
 
 
+function createMotionModel(datasetId, bodyFrames, callback) {
+    db.collection("motion_models").add(bodyFrames)
+        .then(function (docRef) {
+            newMotionModel = { _id: docRef.id, date_created: Date.now() };
+            updateDatasetMotionModels(datasetId, newMotionModel, (res) => {
+                callback(res);
+            });
+        })
+        .catch(function (error) {
+            callback({ 'success': false, 'msg': "Something Went Wrong" });
+        });
+}
+
+
 function updateDatasetMotionModels(datasetId, newMotionModel, callback) {
     db.collection("datasets").doc(datasetId).get()
         .then(function (doc) {
@@ -67,18 +81,12 @@ function updateDatasetMotionModels(datasetId, newMotionModel, callback) {
 }
 
 
-function addMotionModel(datasetId, bodyFrames, callback) {
-    db.collection("motion_models").add(bodyFrames)
-        .then(function (docRef) {
-            newMotionModel = { _id: docRef.id, date_created: Date.now() };
-            updateDatasetMotionModels(datasetId, newMotionModel, (res) => {
-                callback(res);
-            });
-        })
-        .catch(function (error) {
-            callback({ 'success': false, 'msg': "Something Went Wrong" });
-        });
+export {
+    getAllDataSets, createDataSet
 }
+
+
+// ================================================ Testing Functions =====================================================
 
 // getAllDatasets((res) => {
 //     console.log(res);
@@ -92,10 +100,6 @@ function addMotionModel(datasetId, bodyFrames, callback) {
 //     console.log(res);
 // });
 
-addMotionModel('H1kTpMro5AHU4TU7OuqB', { name: 'heee' }, (res) => {
-    console.log(res);
-});
-
-// export {
-//     getAllDataSets, createDataSet
-// }
+// addMotionModel('H1kTpMro5AHU4TU7OuqB', { name: 'heee' }, (res) => {
+//     console.log(res);
+// });

@@ -3,6 +3,8 @@ import Header from '../../Header/Header';
 import JointAnimator from './JointAnimator';
 import KinectNotFound from './KinectNotFound';
 import ActionBar from './ActionBar';
+import SaveModal from './SaveModal';
+
 import { Row, notification } from 'antd';
 import './KinectPreviewPage.css';
 
@@ -10,7 +12,6 @@ const io = require('socket.io-client');
 
 var content;
 var recordedMotion;
-var recordedFrames;
 
 class KinectPreviewPage extends Component {
 
@@ -28,6 +29,8 @@ class KinectPreviewPage extends Component {
 
         this.startConnection = this.startConnection.bind(this);
         this.toggleRecording = this.toggleRecording.bind(this);
+        this.deleteRecordedMotion = this.deleteRecordedMotion.bind(this);
+        this.saveRecordedMotion = this.saveRecordedMotion.bind(this);
     }
 
     componentDidMount() {
@@ -64,7 +67,7 @@ class KinectPreviewPage extends Component {
         }.bind(this));
     }
 
-    toggleRecording() {
+    toggleRecording = () => {
         if (this.state.isRecording) {
             this.setState({ isRecording: false, isPlaying: true });
             this.refs.jointAnimator.playMotion(recordedMotion);
@@ -74,11 +77,25 @@ class KinectPreviewPage extends Component {
         }
     }
 
+    deleteRecordedMotion = () => {
+
+        // clear recorded motion array and frame count
+        recordedMotion = [];
+
+        // Stop motion player
+        this.setState({ isPlaying: false, recordedFrames: 0 });
+    }
+
+    saveRecordedMotion = () => {
+        this.refs.saveModal.setVisible(true);
+    }
 
 
     render() {
         if (this.state.kinectIsConnected) {
-            content = <JointAnimator playMotion={this.state.isPlaying} ref="jointAnimator" />
+            content = <JointAnimator ref="jointAnimator"
+                playMotion={this.state.isPlaying}
+                title={this.state.isPlaying ? "Replay" : "Live Preview"} />
         } else {
             content = <KinectNotFound />
         }
@@ -87,9 +104,16 @@ class KinectPreviewPage extends Component {
 
                 <Header title="Kinect Live Preview" />
 
-                <ActionBar frameCount={this.state.recordedFrames} onRecordingToggled={this.toggleRecording} />
+                <ActionBar
+                    isRecording={this.state.isRecording}
+                    frameCount={this.state.recordedFrames}
+                    onRecordingToggled={this.toggleRecording}
+                    onDelete={this.deleteRecordedMotion}
+                    onSave={this.saveRecordedMotion} />
 
                 {content}
+
+                <SaveModal ref='saveModal' />
 
             </Row>
         );

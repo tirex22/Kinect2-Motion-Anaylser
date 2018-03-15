@@ -22,8 +22,8 @@ class ActionBar extends Component {
         if (!this.state.isRecording && this.props.frameCount > 0) {
             saveButtons =
                 <div style={{ height: 35 }}>
-                    <a><div className="button"> Save</div></a>
-                    <a><div className="button" >Delete</div></a>
+                    <a onClick={() => this.props.onSave()}><div className="button"> Save</div></a>
+                    <a onClick={() => this.props.onDelete()}><div className="button" >Delete</div></a>
                 </div>
         } else {
             saveButtons = null;
