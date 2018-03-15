@@ -27,13 +27,13 @@
 .record-button{
     margin-right: 10px;
     border-radius: 0px;
-    background-color: rgb(253, 63, 104);
+    background-color: rgb(253, 31, 79);
     color:#fff;
     border: none;
 }
 
 .record-button:hover{
-    background-color: rgb(212, 57, 91);
+    background-color: rgb(253, 31, 79);
     border: none;
 }
 
