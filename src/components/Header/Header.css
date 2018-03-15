@@ -2,8 +2,8 @@
     background-color: #7f6ada;
     /* background-color: rgb(124, 182, 128); */
     height:107px;
-    margin-bottom: 20px;
-    padding-left:22px;
+    /* margin-bottom: 20px; */
+    padding:22px;
     /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
 
@@ -13,5 +13,5 @@
     color:#fff;
     float:left;
     margin-right:35px;
-    margin-top:50px;
+    margin-top:30px;
 }

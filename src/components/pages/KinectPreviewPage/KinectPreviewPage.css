@@ -6,10 +6,24 @@
 
 .loader{
     font-size: 50px;
-    color: #d62462;
+    /* color: #d62462; */
+    color:#ddd;
 }
 
 .not-found-error{
     font-size: 15px;
     margin-top:20px;
+}
+
+.action-bar{
+    background-color: #f1f1f1;
+    /* background-color: rgba(0,0,0,0.05); */
+    height: 70px;
+    width: 100%;
+    padding:20px;
+    /* margin-top:-70px; */
+}
+
+.record-button{
+    border-radius: 35px;
 }
