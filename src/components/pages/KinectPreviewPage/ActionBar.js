@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Button } from 'antd';
 import './KinectPreviewPage.css';
 
+let saveButtons;
 class ActionBar extends Component {
 
     constructor() {
@@ -17,11 +18,27 @@ class ActionBar extends Component {
     }
 
     render() {
+
+        if (!this.state.isRecording && this.props.frameCount > 0) {
+            saveButtons =
+                <div style={{ height: 35 }}>
+                    <a><div className="button"> Save</div></a>
+                    <a><div className="button" >Delete</div></a>
+                </div>
+        } else {
+            saveButtons = null;
+        }
+
         return (
-            <Row type="flex" justify="start" className="action-bar">
-                <Button onClick={() => this.toggleRecording()} type="danger">
-                    {this.state.isRecording ? "Stop Recording" : "Record"}
+            <Row type="flex" justify="start" className="action-bar" >
+                <Button onClick={() => this.toggleRecording()} type="danger"
+                    className="record-button"
+                    disabled={this.props.disabled || (this.props.frameCount > 0 && !this.state.isRecording)}>
+                    {this.state.isRecording || this.props.frameCount > 0 ? this.props.frameCount + " Frames" : "Record"}
                 </Button>
+
+                {saveButtons}
+
             </Row >
         );
     }

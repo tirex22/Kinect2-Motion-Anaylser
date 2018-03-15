@@ -25,5 +25,37 @@
 }
 
 .record-button{
-    border-radius: 35px;
+    margin-right: 10px;
+    border-radius: 0px;
+    background-color: rgb(253, 63, 104);
+    color:#fff;
+    border: none;
+}
+
+.record-button:hover{
+    background-color: rgb(212, 57, 91);
+    border: none;
+}
+
+.button{
+    margin-right: 10px;
+    border-radius: 0px;
+    background-color: #e5e5e5;
+    border-color:  #e5e5e5;
+    color:#333;
+    height: 32px;
+    min-width: 70px;
+    display:inline-block;
+    padding-top:5px;
+}
+
+.button:hover{
+    background-color: #ddd;
+    color:#333;
+    border-color:  #ddd;
+}
+
+.frame-count{
+    margin-top:5px;
+    margin-left: 20px;
 }

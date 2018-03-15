@@ -10,6 +10,7 @@ const io = require('socket.io-client');
 
 var content;
 var recordedMotion;
+var recordedFrames;
 
 class KinectPreviewPage extends Component {
 
@@ -22,6 +23,7 @@ class KinectPreviewPage extends Component {
             kinectIsConnected: false,
             isRecording: false,
             isPlaying: false,
+            recordedFrames: 0,
         };
 
         this.startConnection = this.startConnection.bind(this);
@@ -49,6 +51,7 @@ class KinectPreviewPage extends Component {
 
             // Save body frame if user is recording
             if (this.state.isRecording) {
+                this.setState({ recordedFrames: this.state.recordedFrames + 1 });
                 recordedMotion.push(bodyFrame);
             }
 
@@ -84,7 +87,7 @@ class KinectPreviewPage extends Component {
 
                 <Header title="Kinect Live Preview" />
 
-                <ActionBar onRecordingToggled={this.toggleRecording} />
+                <ActionBar frameCount={this.state.recordedFrames} onRecordingToggled={this.toggleRecording} />
 
                 {content}
 
