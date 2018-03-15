@@ -19,8 +19,8 @@ var db = firebase.firestore();
 // ================================================ Functions =====================================================
 
 
-function getAllDataSets(callback) {
-    db.collection("data-sets").get()
+function getAllDatasets(callback) {
+    db.collection("datasets").get()
         .then(function (collection) {
             let datasets = [];
             collection.forEach(function (doc) {
@@ -37,8 +37,8 @@ function getAllDataSets(callback) {
 }
 
 
-function createDataSet(name, callback) {
-    db.collection("data-sets").add({ name: name, motionModelCount: 0, })
+function createDataset(name, callback) {
+    db.collection("datasets").add({ name: name, motion_models: [], })
         .then(function (docRef) {
             callback({ 'success': true, 'id': docRef.id });
         })
@@ -47,14 +47,55 @@ function createDataSet(name, callback) {
         });
 }
 
-// getAllDataSets((res) => {
-//     console.log(res);
-// });
 
-// createDataSet("Shoulder Raise", (res) => {
-//     console.log(res);
-// });
-
-export {
-    getAllDataSets, createDataSet
+function updateDatasetMotionModels(datasetId, newMotionModel, callback) {
+    db.collection("datasets").doc(datasetId).get()
+        .then(function (doc) {
+            let motionModels = doc.data().motion_models;
+            motionModels.push(newMotionModel);
+            db.collection("datasets").doc(datasetId).update({ motion_models: motionModels })
+                .then(function (docRef) {
+                    callback({ 'success': true });
+                })
+                .catch(function (error) {
+                    callback({ 'success': false, 'msg': "Something Went Wrong" });
+                });
+        })
+        .catch(function (error) {
+            callback({ 'success': false, 'msg': "Something Went Wrong" });
+        });
 }
+
+
+function addMotionModel(datasetId, bodyFrames, callback) {
+    db.collection("motion_models").add(bodyFrames)
+        .then(function (docRef) {
+            newMotionModel = { _id: docRef.id, date_created: Date.now() };
+            updateDatasetMotionModels(datasetId, newMotionModel, (res) => {
+                callback(res);
+            });
+        })
+        .catch(function (error) {
+            callback({ 'success': false, 'msg': "Something Went Wrong" });
+        });
+}
+
+// getAllDatasets((res) => {
+//     console.log(res);
+// });
+
+// createDataset("Default Dataset", (res) => {
+//     console.log(res);
+// });
+
+// updateDatasetMotionModels('lpAKm07bVbXi0DQc8ftt', (res) => {
+//     console.log(res);
+// });
+
+addMotionModel('H1kTpMro5AHU4TU7OuqB', { name: 'heee' }, (res) => {
+    console.log(res);
+});
+
+// export {
+//     getAllDataSets, createDataSet
+// }
