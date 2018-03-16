@@ -10,14 +10,30 @@ export default class Navigator extends Component {
         super(props)
         this.state = {
             alignTabs: 'right',
+            screenHeight: window.innerHeight - 1,
         }
+
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ screenHeight: window.innerHeight });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
     }
 
     render() {
         return (
             <Layout className="layout" style={{ backgroundColor: '#f8f8f8' }}>
                 <Affix>
-                    <div className="navbar" style={{ height: window.innerHeight - 1 }} >
+                    <div className="navbar" style={{ height: this.state.screenHeight }} >
                         {/* <p className="logo" >KINECT</p> */}
 
                         <a href="/">
