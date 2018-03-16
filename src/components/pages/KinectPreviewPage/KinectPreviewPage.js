@@ -105,6 +105,7 @@ class KinectPreviewPage extends Component {
                 <Header title="Kinect Live Preview" />
 
                 <ActionBar
+                    disabled={!this.state.kinectIsConnected}
                     isRecording={this.state.isRecording}
                     frameCount={this.state.recordedFrames}
                     onRecordingToggled={this.toggleRecording}
