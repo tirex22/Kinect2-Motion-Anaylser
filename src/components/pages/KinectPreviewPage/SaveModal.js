@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Modal } from 'antd';
-import './KinectPreviewPage.css'
+import { Row, Modal, notification } from 'antd';
+import { getAllDatasets, createMotionModel } from '../../../firebase/firestore';
+import './KinectPreviewPage.css';
+
 
 class SaveModal extends Component {
 
@@ -8,13 +10,42 @@ class SaveModal extends Component {
         super(props);
         this.state = {
             visible: false,
+            datasets: [],
         }
 
-        this.setVisible = this.setVisible.bind(this);
+        this.requestSave = this.requestSave.bind(this);
+        this.saveToDataset = this.saveToDataset.bind(this);
     }
 
-    setVisible = (visibility) => {
-        this.setState({ visible: visibility });
+    componentDidMount() {
+        getAllDatasets((res) => {
+            if (res.success) {
+                this.setState({ datasets: res.datasets });
+            }
+        });
+    }
+
+    requestSave = (motionModel) => {
+        this.setState({ motionModel: motionModel, visible: true });
+    }
+
+    saveToDataset = (dataset) => {
+        createMotionModel(dataset.id, this.state.motionModel, (res) => {
+            if (res.success) {
+                notification['success']({
+                    message: 'Motion Model Successfully Add To ' + dataset.data.name,
+                    duration: 3
+                });
+                this.setState({ visible: false });
+                this.props.deleteMotion();
+            } else {
+                console.log(res.msg);
+                notification['error']({
+                    message: 'Failed To  Add Motion Model To ' + dataset.data.name,
+                    duration: 3
+                });
+            }
+        });
     }
 
     render() {
@@ -22,8 +53,13 @@ class SaveModal extends Component {
             <Modal className="save-modal"
                 visible={this.state.visible}
                 footer={[null]}
-                onCancel={() => this.setVisible(false)}
+                onCancel={() => this.setState({ visible: false })}
             >
+                <Row type="flex" justify="center" className="datasets-row" >
+                    {this.state.datasets.map((item, index) => (
+                        <a key={index} onClick={() => this.saveToDataset(item)} ><div className="save-button" >{item.data.name}</div></a>
+                    ))}
+                </Row>
 
             </Modal>
         );

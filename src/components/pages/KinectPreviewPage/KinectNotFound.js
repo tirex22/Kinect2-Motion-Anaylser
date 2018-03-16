@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Spin } from 'antd';
+import { Icon } from 'antd';
 import './KinectPreviewPage.css';
 
 class KinectNotFound extends Component {

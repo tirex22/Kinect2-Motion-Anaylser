@@ -17,24 +17,20 @@ class JointAnimator extends Component {
         this.playMotion = this.playMotion.bind(this);
     }
 
-
     drawBodyFrame = (bodyFrame) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
-            if (body.tracked) {
-                for (let jointType in body.joints) {
-                    let joint = body.joints[jointType];
-                    ctx.fillStyle = jointColor;
-                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 4, 4);
-                }
+            for (let jointType in body.joints) {
+                let joint = body.joints[jointType];
+                ctx.fillStyle = jointColor;
+                ctx.fillRect(joint.depthX * width, joint.depthY * height, 4, 4);
             }
         });
     }
 
-
-    playMotion(motion, frame) {
+    playMotion = (motion, frame) => {
         let that = this;
-        if (frame == undefined) {
+        if (frame === undefined) {
             alert("Start Playing");
             this.setState({ isPlaying: true });
             frame = 0;
@@ -56,7 +52,6 @@ class JointAnimator extends Component {
         }, 30);
 
     }
-
 
     render() {
         return (

@@ -87,7 +87,7 @@ class KinectPreviewPage extends Component {
     }
 
     saveRecordedMotion = () => {
-        this.refs.saveModal.setVisible(true);
+        if (this.refs.saveModal.requestSave(recordedMotion));
     }
 
 
@@ -113,7 +113,7 @@ class KinectPreviewPage extends Component {
 
                 {content}
 
-                <SaveModal ref='saveModal' />
+                <SaveModal deleteMotion={this.deleteRecordedMotion} ref='saveModal' />
 
             </Row>
         );

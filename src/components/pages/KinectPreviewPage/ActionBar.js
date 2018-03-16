@@ -12,7 +12,7 @@ class ActionBar extends Component {
         }
     }
 
-    toggleRecording() {
+    toggleRecording = () => {
         this.props.onRecordingToggled();
         this.setState({ isRecording: !this.state.isRecording });
     }
