@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Modal, notification, Icon } from 'antd';
-import { getAllDatasets, createMotionModel } from '../../../firebase/firestore';
+import { getAllDatasets, createMotionModel, uploadMotionModel } from '../../../firebase/firestore';
 import './KinectPreviewPage.css';
 
 var content;
@@ -27,10 +27,14 @@ class SaveModal extends Component {
         });
     }
 
+
+    // Shows the save modal and initializes the motion model for uploading
     requestSave = (motionModel) => {
         this.setState({ motionModel: motionModel, visible: true });
     }
 
+
+    // uploades the motion model and adds its reference to the chosen dataset
     saveToDataset = (dataset) => {
         this.setState({ isSaving: true });
 
@@ -42,13 +46,13 @@ class SaveModal extends Component {
                     duration: 3
                 });
             }
-        }, 30000);
+        }, 40000);
 
-        createMotionModel(dataset.id, this.state.motionModel, (res) => {
+        uploadMotionModel(dataset.id, this.state.motionModel, (res) => {
             if (res.success) {
                 if (this.state.isSaving) {
                     notification['success']({
-                        message: 'Motion Model Successfully Add To ' + dataset.data.name,
+                        message: 'Motion Model Successfully Added To ' + dataset.data.name,
                         duration: 3
                     });
                     this.setState({ visible: false });
@@ -86,8 +90,12 @@ class SaveModal extends Component {
         return (
             <Modal className="save-modal"
                 visible={this.state.visible}
-                footer={[null]}
-                onCancel={() => this.setState({ visible: false })}
+                footer={null}
+                onCancel={() => {
+                    if (!this.state.isSaving) {
+                        this.setState({ visible: false });
+                    }
+                }}
             >
                 <Row type="flex" justify="center" className="datasets-row" >
                     {content}

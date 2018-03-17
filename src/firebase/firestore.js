@@ -9,16 +9,24 @@ require("firebase/firestore");
 firebase.initializeApp({
     apiKey: 'AIzaSyfirestoreDiqloPKDLXDhglR8INnZRAq7FUdWL4I',
     projectId: 'motion-analysis',
+    storageBucket: 'gs://motion-analysis.appspot.com/'
 });
 
 // Initialize Cloud Firestore through Firebase
 var firestore = firebase.firestore();
+
+// Initialize Cloud Storage through Firebase
+var storage = firebase.storage();
+
+var storageRef = firebase.storage().ref();
 
 
 
 
 // ================================================ Functions =====================================================
 
+
+// Fetches all datasets from the database ( with motion model references )
 function getAllDatasets(callback) {
     firestore.collection("datasets").get()
         .then(function (collection) {
@@ -36,6 +44,8 @@ function getAllDatasets(callback) {
         });
 }
 
+
+// Creates a new dataset
 function createDataset(name, callback) {
     firestore.collection("datasets").add({ name: name, motion_models: [], })
         .then(function (docRef) {
@@ -46,23 +56,34 @@ function createDataset(name, callback) {
         });
 }
 
-function createMotionModel(datasetId, motionModel, callback) {
+
+// Uploads a new motion model to its relevant dataset folder
+function uploadMotionModel(datasetId, motionModel, callback) {
     compressMotionModel(motionModel, (compressed) => {
-        let motionObject = { 'motion_model': compressed };
-        firestore.collection("motion_models").add(motionObject)
-            .then(function (docRef) {
-                let newMotionModel = { _id: docRef.id, date_created: Date.now() };
-                updateDatasetMotionModels(datasetId, newMotionModel, (res) => {
+        let now = Date.now();
+        let fileName = now + ".json";
+        let fileRef = storageRef.child(datasetId + '/' + fileName);
+        let content = JSON.stringify({ motionModel: compressed });
+        fileRef.putString(content).then((snapshot) => {
+            if (snapshot.state === "success") {
+                let newMotionModel = {
+                    file_name: fileName,
+                    date_created: Date.now(),
+                    frame_count: motionModel.length
+                };
+                addMotionModelToDataset(datasetId, newMotionModel, (res) => {
                     callback(res);
                 });
-            })
-            .catch(function (error) {
-                callback({ 'success': false, 'msg': error });
-            });
+            } else {
+                callback({ 'success': false, 'msg': "Failed to upload motion model." });
+            }
+        });
     });
 }
 
-function updateDatasetMotionModels(datasetId, newMotionModel, callback) {
+
+// Adds a new motion model reference to its relevant dataset
+function addMotionModelToDataset(datasetId, newMotionModel, callback) {
     firestore.collection("datasets").doc(datasetId).get()
         .then(function (doc) {
             let motionModels = doc.data().motion_models;
@@ -80,6 +101,8 @@ function updateDatasetMotionModels(datasetId, newMotionModel, callback) {
         });
 }
 
+
+// Converts a motion model to an array of frames ( smaller file size  )
 function compressMotionModel(motionModel, callback) {
     let newMotionModel = [];
     let jointsPosition = [];
@@ -105,30 +128,9 @@ function compressMotionModel(motionModel, callback) {
     callback(newMotionModel);
 }
 
-function deleteMoionModel(motionModelId) {
-    firestore.collection("motion_models").doc(motionModelId).delete().then(function () {
-        console.log("Document successfully deleted!");
-    }).catch(function (error) {
-        console.error("Error removing document: ", error);
-    });
-}
-
-function deleteAllMotionModels() {
-    getAllDatasets((res) => {
-        let motionModels = [];
-        res.datasets.forEach((dataset) => {
-            motionModels = dataset.data.motion_models;
-            motionModels.forEach((motionModel) => {
-                deleteMoionModel(motionModel._id);
-            });
-        });
-    });
-    return;
-}
-
 
 export {
-    getAllDatasets, createDataset, createMotionModel, deleteAllMotionModels, deleteMoionModel,
+    getAllDatasets, createDataset, uploadMotionModel,
 }
 
 
