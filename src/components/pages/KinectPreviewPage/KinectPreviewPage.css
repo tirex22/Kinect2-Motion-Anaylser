@@ -8,6 +8,7 @@
     font-size: 50px;
     /* color: #d62462; */
     color:#ddd;
+    text-align: center;
 }
 
 .not-found-error{
@@ -81,4 +82,5 @@
 
 .datasets-row{
     width:100%;
+    text-align: center;
 }
