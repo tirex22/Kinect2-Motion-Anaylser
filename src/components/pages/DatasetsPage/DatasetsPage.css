@@ -36,3 +36,53 @@
     font-size: 14px;
     margin-top: 24px;
 }
+
+
+.new-dataset-input{
+    height: 40px;
+    width: 100%;
+    background-color: #fafafa;
+    border: none;
+    font-Size: 15px;
+    /* font-weight: 600; */
+    padding: 10px;
+    border: solid #ddd 1px;
+    color: #333;
+}
+
+.save-dataset-button{
+    margin-right: 10px;
+    border-radius: 0px;
+    background-color: #e5e5e5;
+    border-color:  #e5e5e5;
+    color:#333;
+    height: 45px;
+    min-width: 170px;
+    display:inline-block;
+}
+
+.save-dataset-button:hover{
+    background-color: #ddd;
+    color:#333;
+    border-color:  #ddd;
+    
+}
+
+.new-dataset-button{
+    margin-right: 25px;
+    border-radius: 0px;
+    background-color: rgb(253, 31, 79);
+    color:#fff;
+    border: none;
+    float:right;
+    margin-top:-75px;
+    height: 45px;
+    min-width: 170px;
+    
+}
+
+.new-dataset-button:hover{
+    background-color: rgb(240, 16, 65);
+    color:#fff;
+    border: none;
+}
