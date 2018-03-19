@@ -1,0 +1,38 @@
+.dataset{
+    width:90%;
+    background-color: #fff;
+    height: 70px;
+    /* margin-top:20px; */
+    border-bottom-width:1px;
+    border-bottom-color: #ccc; 
+    border-bottom-style: solid;
+    /* box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    transition: transform .1s; */
+}
+
+.datasets:hover{
+    transform: scale(1.04);
+    box-shadow: 0 5px 7px rgba(0,0,0,0.2);
+}
+
+.folderIcon{
+    height:35px;
+    width:35px;
+    float:left;
+    margin-left: 15px;
+    margin-top: 17px;
+}
+
+.dataset-name{
+    float:left;
+    margin-left:20px;
+    font-size: 14px;
+    margin-top: 24px;
+}
+
+.motion-model-count{
+    float:right;
+    margin-right:20px;
+    font-size: 14px;
+    margin-top: 24px;
+}

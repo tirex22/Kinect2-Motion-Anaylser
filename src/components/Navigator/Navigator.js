@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Layout, Affix } from 'antd';
 import kinectIcon from '../../assets/lens.png';
 import datasetsIcon from '../../assets/datasets.png';
+import { Link, HashRouter } from 'react-router-dom';
 import './Navigator.css';
 
 export default class Navigator extends Component {
@@ -40,7 +41,7 @@ export default class Navigator extends Component {
                             <img alt="" src={kinectIcon} className="icon" />
                         </a>
 
-                        <a href="/">
+                        <a href="/datasets/">
                             <img alt="" src={datasetsIcon} className="icon" />
                         </a>
                     </div>

@@ -1,30 +1,4 @@
-const firebase = require("firebase");
-require("firebase/firestore");
-
-// ============================================ Initialization ===================================================
-
-
-
-// Initialize Firebase App
-firebase.initializeApp({
-    apiKey: 'AIzaSyfirestoreDiqloPKDLXDhglR8INnZRAq7FUdWL4I',
-    projectId: 'motion-analysis',
-    storageBucket: 'gs://motion-analysis.appspot.com/'
-});
-
-// Initialize Cloud Firestore through Firebase
-var firestore = firebase.firestore();
-
-// Initialize Cloud Storage through Firebase
-var storage = firebase.storage();
-
-var storageRef = firebase.storage().ref();
-
-
-
-
-// ================================================ Functions =====================================================
-
+import { firestore, storage } from './init';
 
 // Fetches all datasets from the database ( with motion model references )
 function getAllDatasets(callback) {
@@ -62,7 +36,7 @@ function uploadMotionModel(datasetId, motionModel, callback) {
     compressMotionModel(motionModel, (compressed) => {
         let now = Date.now();
         let fileName = now + ".json";
-        let fileRef = storageRef.child(datasetId + '/' + fileName);
+        let fileRef = storage.ref().child(datasetId + '/' + fileName);
         let content = JSON.stringify({ motionModel: compressed });
         fileRef.putString(content).then((snapshot) => {
             if (snapshot.state === "success") {
@@ -131,7 +105,7 @@ function compressMotionModel(motionModel, callback) {
 
 export {
     getAllDatasets, createDataset, uploadMotionModel,
-}
+};
 
 
 // ================================================ Testing Functions =====================================================
