@@ -55,11 +55,11 @@ class JointAnimator extends Component {
 
     render() {
         return (
-            <Card title={this.props.title} className="joint-animator" >
+            <div title={this.props.title} className="joint-animator" >
                 <canvas id="bodyCanvas"
                     width={width.toString()}
                     height={height.toString()} />
-            </Card>
+            </div>
         );
     }
 }

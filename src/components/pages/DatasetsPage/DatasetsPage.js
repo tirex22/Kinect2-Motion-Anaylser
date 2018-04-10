@@ -34,7 +34,6 @@ class DatasetsPage extends Component {
             }
         });
         this.setState({ datasets: newDatasets });
-
     }
 
     render() {

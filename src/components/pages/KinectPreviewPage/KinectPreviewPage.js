@@ -4,7 +4,7 @@ import JointAnimator from './JointAnimator';
 import KinectNotFound from './KinectNotFound';
 import ActionBar from './ActionBar';
 import SaveModal from './SaveModal';
-
+import LiveAnalyser from '../../Graphs/LiveAnalyser';
 import { Row, notification } from 'antd';
 import './KinectPreviewPage.css';
 
@@ -93,11 +93,18 @@ class KinectPreviewPage extends Component {
 
     render() {
         if (this.state.kinectIsConnected) {
-            content = <JointAnimator ref="jointAnimator"
-                playMotion={this.state.isPlaying}
-                title={this.state.isPlaying ? "Replay" : "Live Preview"} />
+            content = (
+                <div>
+                    <JointAnimator ref="jointAnimator"
+                        playMotion={this.state.isPlaying}
+                        title={this.state.isPlaying ? "Replay" : "Live Preview"} />
+                    <LiveAnalyser />
+                </div>
+            )
         } else {
-            content = <KinectNotFound />
+            content = (
+                <KinectNotFound />
+            )
         }
         return (
             <Row type="flex" justify="center">

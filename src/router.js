@@ -17,7 +17,7 @@ class RouterConfig extends Component {
 
                     <Switch>
 
-                        <Route path="//" component={DatasetsPage} />
+                        <Route path="//" component={KinectView} />
 
                         <Route path="/dataset"
                             render={() => <DatasetsPage />} />
