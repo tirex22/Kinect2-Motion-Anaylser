@@ -41,6 +41,7 @@
 .new-dataset-input{
     height: 40px;
     width: 100%;
+    max-width: 400px;
     background-color: #fafafa;
     border: none;
     font-Size: 15px;

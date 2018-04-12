@@ -4,26 +4,44 @@ import { Card } from 'antd';
 var ctx;
 var canvas;
 
-let jointColor = '#e03162';
+let activeJointColor = '#e03162';
+let inActiveJointColor = '#ddd';
+
 let width = 400;
 let height = 333;
 var bodyFrame;
 
+
 class JointAnimator extends Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedJoints: [0, 1, 2, 3],
+            currentJoint: 9,
+        }
+    }
 
     componentDidMount() {
         canvas = document.getElementById('bodyCanvas');
         ctx = canvas.getContext('2d');
         this.playMotion = this.playMotion.bind(this);
+        this.drawBodyFrame = this.drawBodyFrame.bind(this);
     }
 
     drawBodyFrame = (bodyFrame) => {
+        let that = this;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
             for (let jointType in body.joints) {
-                let joint = body.joints[jointType];
-                ctx.fillStyle = jointColor;
-                ctx.fillRect(joint.depthX * width, joint.depthY * height, 4, 4);
+                if (true) {
+                    let joint = body.joints[jointType];
+                    ctx.fillStyle = activeJointColor;
+                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
+                } else {
+                    let joint = body.joints[jointType];
+                    ctx.fillStyle = inActiveJointColor;
+                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
+                }
             }
         });
     }

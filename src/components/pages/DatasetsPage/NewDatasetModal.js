@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Modal, Row, Button, Input, notification, Icon } from 'antd';
 import { createDataset } from '../../../firebase/firestore';
+import BodyView from './BodyView';
 
 var content = null;
+
 class NewDatasetModal extends Component {
 
     constructor() {
@@ -10,6 +12,10 @@ class NewDatasetModal extends Component {
         this.state = { visible: false, datasetName: "", isCreating: false };
         this.handleChange = this.handleChange.bind(this);
         this.createDataset = this.createDataset.bind(this);
+    }
+
+    componentDidMount() {
+
     }
 
     setVisible(visiblity) {
@@ -23,7 +29,10 @@ class NewDatasetModal extends Component {
 
     createDataset() {
         this.setState({ isCreating: true });
-        createDataset(this.state.datasetName, (res) => {
+        let datasetInfo = this.refs.bodyView.getSelectedJoints();
+        datasetInfo.name = this.state.datasetName;
+        datasetInfo.motion_models = [];
+        createDataset(datasetInfo, (res) => {
             if (res.success) {
                 notification['success']({
                     message: 'Successfully Created Dataset',
@@ -54,6 +63,7 @@ class NewDatasetModal extends Component {
             content = (
                 <div>
                     <input onChange={(e) => this.handleChange(e)} style={{ marginTop: 15, }} className="new-dataset-input" placeholder="Dataset Name" />
+                    <BodyView ref="bodyView" />
                     <Button onClick={() => this.createDataset()} style={{ marginTop: 20, }} type="danger" className="save-dataset-button">
                         Save
                     </Button>

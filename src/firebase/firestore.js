@@ -20,8 +20,8 @@ function getAllDatasets(callback) {
 
 
 // Creates a new dataset
-function createDataset(name, callback) {
-    firestore.collection("datasets").add({ name: name, motion_models: [], })
+function createDataset(datasetInfo, callback) {
+    firestore.collection("datasets").add(datasetInfo)
         .then(function (docRef) {
             callback({ 'success': true, 'id': docRef.id });
         })
