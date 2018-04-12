@@ -1,46 +1,72 @@
 import React, { Component } from 'react';
 import './Graphs.css';
+import { Line, defaults } from 'react-chartjs-2';
 
-import {
-    ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine,
-    ReferenceDot, Tooltip, CartesianGrid, Legend, Brush, ErrorBar, AreaChart, Area,
-    Label, LabelList
-} from 'recharts';
+defaults.global.animation = false;
 
+const divs = 100;
 
 class LiveAnalyser extends Component {
     constructor() {
         super();
+
+        let emptyLables = [];
+        let zeroValues = [];
+
+        for (let i = 0; i < divs; i++) {
+            emptyLables.push("");
+            zeroValues.push(0);
+        }
+
         this.state = {
-            data: [
-                { diff: 2 },
-            ],
+            labels: emptyLables,
+            datasets: [{
+                label: '',
+                data: zeroValues,
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(0,0,0,0)',
+                borderColor: '#c2bee5',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                pointBackgroundColor: '#fff',
+                pointRadius: 0,
+                pointHitRadius: 0,
+            }]
+
         }
         this.addData = this.addData.bind(this);
     }
 
     componentDidMount() {
         this.addData(0);
-        this.addData(1);
-        this.addData(2);
-        this.addData(3);
+    }
+
+    getRandomInt(max) {
+        let n = Math.floor(Math.random() * Math.floor(max));
+        console.log(n);
+        return n;
     }
 
     addData(n) {
-        let newData = this.state.data;
-        newData.push({ diff: n });
-        this.setState({ data: newData });
+        setTimeout(() => {
+            let newData = this.state.datasets
+            let dataFile = newData[0].data;
+            dataFile.push(this.getRandomInt(10));
+            newData[0].data = dataFile.slice(Math.max(newData.length - divs, 1))
+            this.setState({ datasets: newData });
+            this.addData(n + 1);
+        }, 50);
     }
 
     render() {
         return (
             <div className="live-displacement">
-                <LineChart height={448} width={770}
-                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-                    data={this.state.data}>
-                    <CartesianGrid stroke='#ddd' fill="rgba(255,255,255,0.6)" />
-                    <Line type="monotone" dataKey="diff" stroke="#8884d8" />
-                </LineChart>
+                <Line height={440} width={770} data={this.state}
+                    options={{
+                        maintainAspectRatio: true
+                    }} />
             </div >
         );
     }

@@ -103,7 +103,10 @@ class KinectPreviewPage extends Component {
             )
         } else {
             content = (
-                <KinectNotFound />
+                <div>
+                    <LiveAnalyser />
+                    <KinectNotFound />
+                </div>
             )
         }
         return (
