@@ -6,10 +6,14 @@ var canvas;
 
 let activeJointColor = '#e03162';
 let inActiveJointColor = '#ddd';
+let otherColor = '#6355e0';
 
 let width = 400;
 let height = 333;
 var bodyFrame;
+
+let selectedJoints = [];
+let other = [0, 1, 2, 3, 20];
 
 
 class JointAnimator extends Component {
@@ -28,12 +32,22 @@ class JointAnimator extends Component {
         this.drawBodyFrame = this.drawBodyFrame.bind(this);
     }
 
+    setSelectedJoints(joints) {
+        selectedJoints = joints;
+        console.log(selectedJoints);
+    }
+
     drawBodyFrame = (bodyFrame) => {
         let that = this;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
             for (let jointType in body.joints) {
-                if (true) {
+                if (other.includes(parseInt(jointType))) {
+                    let joint = body.joints[jointType];
+                    ctx.fillStyle = otherColor;
+                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
+                }
+                else if (selectedJoints.includes(parseInt(jointType))) {
                     let joint = body.joints[jointType];
                     ctx.fillStyle = activeJointColor;
                     ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);

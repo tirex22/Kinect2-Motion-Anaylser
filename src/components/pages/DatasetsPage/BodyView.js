@@ -101,7 +101,7 @@ class BodyView extends Component {
         selectedJoints = selectedJoints.concat(RL);
         let res = {
             selected_joints: selectedJoints,
-            other: other
+            // other: other
         }
         return (res);
     }

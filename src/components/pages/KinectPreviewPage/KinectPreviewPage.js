@@ -3,9 +3,10 @@ import Header from '../../Header/Header';
 import JointAnimator from './JointAnimator';
 import KinectNotFound from './KinectNotFound';
 import ActionBar from './ActionBar';
-import SaveModal from './SaveModal';
+import ChooseDatasetModal from './ChooseDatasetModal';
 import LiveAnalyser from '../../Graphs/LiveAnalyser';
 import { Row, notification } from 'antd';
+import { getAllDatasets } from '../../../firebase/firestore';
 import './KinectPreviewPage.css';
 
 const io = require('socket.io-client');
@@ -25,6 +26,7 @@ class KinectPreviewPage extends Component {
             isRecording: false,
             isPlaying: false,
             recordedFrames: 0,
+            workingDataset: {},
         };
 
         this.startConnection = this.startConnection.bind(this);
@@ -35,6 +37,11 @@ class KinectPreviewPage extends Component {
 
     componentDidMount() {
         this.startConnection();
+        getAllDatasets((res) => {
+            if (res.success) {
+                this.setState({ datasets: res.datasets });
+            }
+        });
     }
 
 
@@ -111,7 +118,7 @@ class KinectPreviewPage extends Component {
         return (
             <Row type="flex" justify="center">
 
-                <Header title="Kinect Live Preview" />
+                <Header ref="header" chooseDatasetModal={this.refs.chooseDatasetModal} title="Kinect Live Preview" selectorVisible={true} />
 
                 <ActionBar
                     disabled={!this.state.kinectIsConnected}
@@ -123,7 +130,7 @@ class KinectPreviewPage extends Component {
 
                 {content}
 
-                <SaveModal deleteMotion={this.deleteRecordedMotion} ref='saveModal' />
+                <ChooseDatasetModal ref='chooseDatasetModal' header={this.refs.header} animator={this.refs.jointAnimator} />
 
             </Row>
         );
