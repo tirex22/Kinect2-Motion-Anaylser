@@ -105,7 +105,7 @@ class KinectPreviewPage extends Component {
                     <JointAnimator ref="jointAnimator"
                         playMotion={this.state.isPlaying}
                         title={this.state.isPlaying ? "Replay" : "Live Preview"} />
-                    {/* <LiveAnalyser /> */}
+                    <LiveAnalyser />
                 </div>
             )
         } else {

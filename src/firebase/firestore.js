@@ -102,9 +102,46 @@ function compressMotionModel(motionModel, callback) {
     callback(newMotionModel);
 }
 
+// Creates a new user
+function createUser(name, callback) {
+    firestore.collection("users").add({
+        info: {
+            name: name,
+            profile_picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzaLMnex1QwV83TBQgxLTaoDAQlFswsYy62L3mO4Su-CMkk3jX",
+        },
+        statistics: {
+
+        }
+    })
+        .then(function (docRef) {
+            callback({ 'success': true, 'id': docRef.id });
+        })
+        .catch(function (error) {
+            callback({ 'success': false, 'msg': error });
+        });
+}
+
+// Fetches all users from the database
+function getAllUsers(callback) {
+    firestore.collection("users").get()
+        .then(function (collection) {
+            let users = [];
+            collection.forEach(function (doc) {
+                users.push({
+                    id: doc.id,
+                    data: doc.data(),
+                });
+            });
+            callback({ 'success': true, 'users': users });
+        })
+        .catch(function (error) {
+            callback({ 'success': false, 'msg': error });
+        });
+}
+
 
 export {
-    getAllDatasets, createDataset, uploadMotionModel,
+    getAllDatasets, createDataset, uploadMotionModel, createUser, getAllUsers
 };
 
 
