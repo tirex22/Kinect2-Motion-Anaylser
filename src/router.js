@@ -5,6 +5,8 @@ import DatasetsPage from './components/pages/DatasetsPage/DatasetsPage';
 import KinectView from './components/pages/KinectPreviewPage/KinectPreviewPage';
 import UserPage from './components/pages/UserPage/UserPage';
 
+import Navigator from './components/Navigator/Navigator'
+
 
 
 class RouterConfig extends Component {
@@ -16,19 +18,23 @@ class RouterConfig extends Component {
             <HashRouter>
                 <div className="App">
 
-                    <Switch>
+                    <Navigator />
 
-                        <Route path="//" component={UserPage} />
+                    {/* <Switch> */}
 
-                        <Route path="/dataset"
-                            render={() => <DatasetsPage />} />
-                        />
+                    <div style={{ marginLeft: 70, }}>
 
-                        <Route path="/dataset"
-                            render={() => <DatasetsPage />} />
-                        />
+                        <Route path="//" component={KinectView} />
 
-                    </Switch>
+                        <Route path="/datasets" component={DatasetsPage} />
+
+                        <Route path="/users" component={UserPage} />
+
+                    </div>
+
+
+
+                    {/* </Switch> */}
 
                 </div>
             </HashRouter>

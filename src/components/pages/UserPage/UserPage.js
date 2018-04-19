@@ -50,7 +50,7 @@ class UserPage extends Component {
 
         return (
             <div>
-                <Header title="Users" />
+                <Header title="Users" selectorVisible={false} />
                 <NewUserForm ref="newUserForm" onCreateUser={this.getAllUsers} />
                 <Button onClick={() => this.refs.newUserForm.setVisible(true)} type="danger" className="new-dataset-button">Create New
                 </Button>

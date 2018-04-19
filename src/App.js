@@ -6,7 +6,7 @@ import Navigator from './components/Navigator/Navigator';
 class App extends Component {
   render() {
     return (
-      <Navigator children={<RouterConfig />} />
+      <RouterConfig />
     );
   }
 }
