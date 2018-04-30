@@ -21,12 +21,12 @@ class LiveAnalyser extends Component {
         this.state = {
             labels: emptyLables,
             datasets: [{
-                label: '',
+                label: 'Motion Level',
                 data: zeroValues,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(0,0,0,0)',
-                borderColor: '#c2bee5',
+                borderColor: '#6355e096',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,

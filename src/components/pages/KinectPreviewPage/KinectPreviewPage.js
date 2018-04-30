@@ -111,12 +111,14 @@ class KinectPreviewPage extends Component {
                         playMotion={this.state.isPlaying}
                         title={this.state.isPlaying ? "Replay" : "Live Preview"} />
                     <div className="live-displacement">
-                        <Steps />
+                        <Steps ref="steps" />
                         <LiveAnalyser ref="liveGraphA" />
                     </div>
                     <SnatchAnalyser
+                        steps={this.refs.steps}
                         ref="moveAnalyser"
                         liveGraphA={this.refs.liveGraphA}
+                        recorder={this}
                     />
                 </div>
             )

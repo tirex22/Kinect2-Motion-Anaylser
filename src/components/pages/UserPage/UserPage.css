@@ -12,6 +12,7 @@
     transition: transform .1s;
     /* border-radius:7px; */
     padding:10px;
+    /* color:#827bad; */
 }
 
 .user:hover{
