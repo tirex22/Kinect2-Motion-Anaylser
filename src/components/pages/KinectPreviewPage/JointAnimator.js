@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { Card } from 'antd';
 
 var ctx;
 var canvas;
 
 let activeJointColor = '#e03162';
-let inActiveJointColor = '#ddd';
-let otherColor = '#6355e0';
+// let inActiveJointColor = '#ddd';
+// let otherColor = '#6355e0';
 
 let width = 400;
 let height = 333;
 var bodyFrame;
 
 let selectedJoints = [];
-let other = [0, 1, 2, 3, 20];
 
 
 class JointAnimator extends Component {
@@ -38,7 +36,6 @@ class JointAnimator extends Component {
     }
 
     drawBodyFrame = (bodyFrame) => {
-        let that = this;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
             for (let jointType in body.joints) {

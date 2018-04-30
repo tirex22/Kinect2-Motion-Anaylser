@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, notification, Steps } from 'antd';
+import { Steps } from 'antd';
 const Step = Steps.Step;
 
 class moveSteps extends Component {

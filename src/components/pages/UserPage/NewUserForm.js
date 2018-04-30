@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Row, Button, Input, notification, Icon } from 'antd';
+import { Modal, Row, Button, notification, Icon } from 'antd';
 import { createUser } from '../../../firebase/firestore';
 
 var content = null;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Modal, notification, Icon } from 'antd';
-import { getAllDatasets, createMotionModel, uploadMotionModel } from '../../../firebase/firestore';
+import { getAllDatasets, uploadMotionModel } from '../../../firebase/firestore';
 import './KinectPreviewPage.css';
 
 var content;

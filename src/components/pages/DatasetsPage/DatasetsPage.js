@@ -41,7 +41,7 @@ class DatasetsPage extends Component {
             content = (
                 this.state.datasets.map((item, index) => (
                     <div key={index} className="dataset">
-                        <img src={folder} className="folderIcon" />
+                        <img alt="" src={folder} className="folderIcon" />
                         <p className="dataset-name" >{item.data.name}</p>
                         <p className="motion-model-count" >{item.data.motion_models.length} Motion Models</p>
                         {/* <div className="save-button" >{item.data.name}</div> */}

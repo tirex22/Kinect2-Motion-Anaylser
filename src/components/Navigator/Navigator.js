@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Layout, Affix } from 'antd';
+import { Affix } from 'antd';
 import kinectIcon from '../../assets/lens.png';
 import datasetsIcon from '../../assets/datasets.png';
 import avatarIcon from '../../assets/avatar.png';
-import { Link, HashRouter } from 'react-router-dom';
 import './Navigator.css';
 
 export default class Navigator extends Component {

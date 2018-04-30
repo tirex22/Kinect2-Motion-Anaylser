@@ -60,10 +60,11 @@ class BodyView extends Component {
 
     SelectBodyPart(bodyPart) {
         switch (bodyPart) {
-            case "LA": LA.length == 0 ? LA = [4, 5, 6, 7, 22, 21] : LA = []; break;
-            case "RA": RA.length == 0 ? RA = [8, 9, 10, 11, 23, 24] : RA = []; break;
-            case "LL": LL.length == 0 ? LL = [12, 13, 14, 15] : LL = []; break;
-            case "RL": RL.length == 0 ? RL = [16, 17, 18, 19] : RL = []; break;
+            case "LA": LA.length === 0 ? LA = [4, 5, 6, 7, 22, 21] : LA = []; break;
+            case "RA": RA.length === 0 ? RA = [8, 9, 10, 11, 23, 24] : RA = []; break;
+            case "LL": LL.length === 0 ? LL = [12, 13, 14, 15] : LL = []; break;
+            case "RL": RL.length === 0 ? RL = [16, 17, 18, 19] : RL = []; break;
+            default: break;
         }
         this.drawBody();
     }

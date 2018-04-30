@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 
 import DatasetsPage from './components/pages/DatasetsPage/DatasetsPage';
 import KinectView from './components/pages/KinectPreviewPage/KinectPreviewPage';

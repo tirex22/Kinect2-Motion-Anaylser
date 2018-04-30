@@ -5,8 +5,6 @@ import NewUserForm from './NewUserForm';
 import { getAllUsers } from '../../../firebase/firestore';
 import './UserPage.css';
 
-import { Line, defaults } from 'react-chartjs-2';
-
 var content;
 
 class UserPage extends Component {
@@ -43,7 +41,7 @@ class UserPage extends Component {
             content = (
                 this.state.users.map((item, index) => (
                     <a href={"/#/users/" + item.id + "/"} ><div key={index} className="user">
-                        <img src={item.data.info.profile_picture} className="user-pic" />
+                        <img alt="" src={item.data.info.profile_picture} className="user-pic" />
                         <p className="user-name" >{item.data.info.name}</p>
                         {/* <div className="save-button" >{item.data.name}</div> */}
                     </div></a>
