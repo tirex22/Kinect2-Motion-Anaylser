@@ -42,20 +42,20 @@ class JointAnimator extends Component {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyFrame.bodies.forEach(function (body) {
             for (let jointType in body.joints) {
-                if (other.includes(parseInt(jointType))) {
-                    let joint = body.joints[jointType];
-                    ctx.fillStyle = otherColor;
-                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
-                }
-                else if (selectedJoints.includes(parseInt(jointType))) {
-                    let joint = body.joints[jointType];
-                    ctx.fillStyle = activeJointColor;
-                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
-                } else {
-                    let joint = body.joints[jointType];
-                    ctx.fillStyle = inActiveJointColor;
-                    ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
-                }
+                // if (other.includes(parseInt(jointType))) {
+                let joint = body.joints[jointType];
+                ctx.fillStyle = activeJointColor;
+                ctx.fillRect(joint.depthX * width, joint.depthY * height, 4, 4);
+                // }
+                // else if (selectedJoints.includes(parseInt(jointType))) {
+                //     let joint = body.joints[jointType];
+                //     ctx.fillStyle = activeJointColor;
+                //     ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
+                // } else {
+                //     let joint = body.joints[jointType];
+                //     ctx.fillStyle = inActiveJointColor;
+                //     ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
+                // }
             }
         });
     }

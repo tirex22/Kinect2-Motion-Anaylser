@@ -6,9 +6,6 @@ import { getAllUsers } from '../../../firebase/firestore';
 import './UserPage.css';
 
 import { Line, defaults } from 'react-chartjs-2';
-import { getBarLevel } from '../../Functions/SnatchAnalyser';
-
-const snatchAnalyser = require('../../Functions/SnatchAnalyser');
 
 var content;
 
@@ -17,33 +14,8 @@ class UserPage extends Component {
     constructor() {
         super();
 
-        let data = getBarLevel();
-        let emptyLables = [];
-
-        for (let i = 0; i < data.length; i++) {
-            emptyLables.push("");
-        }
-
         this.state = {
             users: [],
-            data: {
-                labels: emptyLables,
-                datasets: [{
-                    label: '',
-                    data: data,
-                    fill: true,
-                    lineTension: 0.1,
-                    backgroundColor: 'rgba(0,0,0,0)',
-                    borderColor: '#c2bee5',
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    pointBackgroundColor: '#fff',
-                    pointRadius: 0,
-                    pointHitRadius: 0,
-                }]
-
-            }
         }
 
         this.getAllUsers = this.getAllUsers.bind(this);

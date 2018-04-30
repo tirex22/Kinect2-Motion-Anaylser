@@ -40,34 +40,43 @@ class LiveAnalyser extends Component {
     }
 
     componentDidMount() {
-        this.addData(0);
+        // this.addData(0);
     }
 
     getRandomInt(max) {
         let n = Math.floor(Math.random() * Math.floor(max));
-        console.log(n);
+        // console.log(n);
         return n;
     }
 
     addData(n) {
-        setTimeout(() => {
-            let newData = this.state.datasets
-            let dataFile = newData[0].data;
-            dataFile.push(this.getRandomInt(10));
-            newData[0].data = dataFile.slice(Math.max(newData.length - divs, 1))
-            this.setState({ datasets: newData });
-            this.addData(n + 1);
-        }, 50);
+        let newData = this.state.datasets
+        let dataFile = newData[0].data;
+        dataFile.push(n);
+        newData[0].data = dataFile.slice(Math.max(dataFile.length - divs, 1))
+        // console.log(newData);
+        this.setState({ datasets: newData });
     }
 
     render() {
         return (
-            <div className="live-displacement">
-                <Line height={440} width={770} data={this.state}
+            <div className="card">
+                <Line height={368} width={770} data={this.state}
                     options={{
-                        maintainAspectRatio: true
+                        maintainAspectRatio: true,
+                        scales: {
+                            yAxes: [{
+                                id: 'left-y-axis',
+                                type: 'linear',
+                                position: 'left',
+                                ticks: {
+                                    min: 0,
+                                    max: 2.5,
+                                }
+                            }]
+                        }
                     }} />
-            </div >
+            </div>
         );
     }
 }

@@ -4,9 +4,11 @@ import JointAnimator from './JointAnimator';
 import KinectNotFound from './KinectNotFound';
 import ActionBar from './ActionBar';
 import ChooseDatasetModal from './ChooseDatasetModal';
-import LiveAnalyser from '../../Graphs/LiveAnalyser';
+import LiveAnalyser from '../../Analysers/LiveAnalyser';
+import SnatchAnalyser from '../../Analysers/SnatchAnalyser';
 import { Row, notification } from 'antd';
 import { getAllDatasets } from '../../../firebase/firestore';
+import Steps from './Steps';
 import './KinectPreviewPage.css';
 
 const io = require('socket.io-client');
@@ -69,6 +71,9 @@ class KinectPreviewPage extends Component {
 
                 // Draw new body frame
                 this.refs.jointAnimator.drawBodyFrame(bodyFrame);
+
+                // Analayse body frame
+                this.refs.moveAnalyser.addFrame(bodyFrame);
             }
 
         }.bind(this));
@@ -105,12 +110,30 @@ class KinectPreviewPage extends Component {
                     <JointAnimator ref="jointAnimator"
                         playMotion={this.state.isPlaying}
                         title={this.state.isPlaying ? "Replay" : "Live Preview"} />
-                    <LiveAnalyser />
+                    <div className="live-displacement">
+                        <Steps />
+                        <LiveAnalyser ref="liveGraphA" />
+                    </div>
+                    <SnatchAnalyser
+                        ref="moveAnalyser"
+                        liveGraphA={this.refs.liveGraphA}
+                    />
                 </div>
             )
         } else {
             content = (
                 <div>
+                    {/* <JointAnimator ref="jointAnimator"
+                        playMotion={this.state.isPlaying}
+                        title={this.state.isPlaying ? "Replay" : "Live Preview"} />
+                    <div className="live-displacement">
+                        <Steps />
+                        <LiveAnalyser ref="liveGraphA" />
+                    </div>
+                    <SnatchAnalyser
+                        ref="moveAnalyser"
+                        liveGraphA={this.refs.liveGraphA}
+                    /> */}
                     <KinectNotFound />
                 </div>
             )
@@ -118,7 +141,7 @@ class KinectPreviewPage extends Component {
         return (
             <Row type="flex" justify="center">
 
-                <Header ref="header" chooseDatasetModal={this.refs.chooseDatasetModal} title="Kinect Live Preview" selectorVisible={true} />
+                <Header ref="header" title="Kinect Live Preview" />
 
                 <ActionBar
                     disabled={!this.state.kinectIsConnected}

@@ -90,3 +90,17 @@
     width:100%;
     text-align: center;
 }
+
+.move-steps{
+    display:inline-block;
+    height:55px;
+    margin-bottom: 20px;
+    padding-top:35px;
+}
+
+.card{
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 9px 0 rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,0.6);
+    padding:10px;
+    width:740px;
+}
