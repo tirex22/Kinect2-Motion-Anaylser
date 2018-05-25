@@ -53,7 +53,7 @@ class SnatchAnalyser extends Component {
                     break;
                 }
                 if (correctStance) {
-                    this.props.steps.setStep(1);
+                    // this.props.steps.setStep(1);
                     this.setState({ step: 1 });
                 }
             }
@@ -62,7 +62,7 @@ class SnatchAnalyser extends Component {
 
     checkFirstPull(bodyFrame) {
         if (bodyFrame[10].cameraY > bodyFrame[16].cameraY) {
-            this.props.steps.setStep(2);
+            // this.props.steps.setStep(2);
             this.setState({ step: 2 });
         }
         return;
@@ -70,7 +70,7 @@ class SnatchAnalyser extends Component {
 
     checkSecondPull(bodyFrame) {
         if (bodyFrame[10].cameraY > bodyFrame[8].cameraY) {
-            this.props.steps.setStep(3);
+            // this.props.steps.setStep(3);
             this.setState({ step: 3 });
         }
         return;
@@ -79,7 +79,7 @@ class SnatchAnalyser extends Component {
     checkTurnover(bodyFrame) {
         let dist = getYDistance(bodyFrame[0], bodyFrame[18]);
         if (dist < 0.37) {
-            this.props.steps.setStep(4);
+            // this.props.steps.setStep(4);
             this.setState({ step: 4 });
         }
         return;

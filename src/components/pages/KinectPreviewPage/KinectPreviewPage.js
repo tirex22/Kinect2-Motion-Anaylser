@@ -10,7 +10,6 @@ import { Row, notification } from 'antd';
 import { getAllDatasets } from '../../../firebase/firestore';
 import Steps from './Steps';
 import './KinectPreviewPage.css';
-
 const io = require('socket.io-client');
 
 var content;
@@ -29,12 +28,17 @@ class KinectPreviewPage extends Component {
             isPlaying: false,
             recordedFrames: 0,
             workingDataset: {},
+            animatorWidth: 0,
+            analyzerWidth: 0,
+            analyzerHeight: 0,
+            port: false,
         };
 
         this.startConnection = this.startConnection.bind(this);
         this.toggleRecording = this.toggleRecording.bind(this);
         this.deleteRecordedMotion = this.deleteRecordedMotion.bind(this);
         this.saveRecordedMotion = this.saveRecordedMotion.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     componentDidMount() {
@@ -44,13 +48,14 @@ class KinectPreviewPage extends Component {
                 this.setState({ datasets: res.datasets });
             }
         });
+        this.updateWindowDimensions();
+        // window.addEventListener('resize', this.updateWindowDimensions);
     }
 
 
     startConnection = () => {
-
         // Connect to kinect server
-        var socket = io.connect('127.0.0.1:8000');
+        var socket = io.connect('192.168.0.104:8000');
         socket.on('bodyFrame', function (bodyFrame) {
 
             if (!this.state.kinectIsConnected) {
@@ -77,6 +82,32 @@ class KinectPreviewPage extends Component {
             }
 
         }.bind(this));
+    }
+
+    updateWindowDimensions() {
+        if (window.innerHeight > window.innerWidth) {
+            this.setState({
+                port: true,
+                analyzerWidth: window.innerWidth - 60,
+                analyzerHeight: window.innerHeight - window.innerWidth - 50,
+                animatorWidth: window.innerWidth - 40,
+            });
+        } else {
+            this.setState({
+                animatorWidth: (window.innerWidth / 3) - 40,
+                analyzerWidth: (window.innerWidth) - ((window.innerWidth / 3)) - 60,
+                analyzerHeight: (window.innerWidth / 3) - 48,
+            });
+        }
+
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateDataset(datasetName) {
+        this.setState({ datasetName: datasetName });
     }
 
     toggleRecording = () => {
@@ -109,10 +140,15 @@ class KinectPreviewPage extends Component {
                 <div>
                     <JointAnimator ref="jointAnimator"
                         playMotion={this.state.isPlaying}
-                        title={this.state.isPlaying ? "Replay" : "Live Preview"} />
+                        width={this.state.animatorWidth}
+                        port={this.state.port}
+                    />
                     <div className="live-displacement">
-                        <Steps ref="steps" />
-                        <LiveAnalyser ref="liveGraphA" />
+                        {/* <Steps ref="steps" /> */}
+                        <LiveAnalyser ref="liveGraphA"
+                            width={this.state.analyzerWidth}
+                            height={this.state.analyzerHeight}
+                        />
                     </div>
                     <SnatchAnalyser
                         steps={this.refs.steps}
@@ -125,18 +161,24 @@ class KinectPreviewPage extends Component {
         } else {
             content = (
                 <div>
-                    {/* <JointAnimator ref="jointAnimator"
+                    <JointAnimator ref="jointAnimator"
                         playMotion={this.state.isPlaying}
-                        title={this.state.isPlaying ? "Replay" : "Live Preview"} />
+                        width={this.state.animatorWidth}
+                        port={this.state.port}
+                    />
                     <div className="live-displacement">
-                        <Steps />
-                        <LiveAnalyser ref="liveGraphA" />
+                        {/* <Steps ref="steps" /> */}
+                        <LiveAnalyser ref="liveGraphA"
+                            width={this.state.analyzerWidth}
+                            height={this.state.analyzerHeight} />
                     </div>
                     <SnatchAnalyser
+                        steps={this.refs.steps}
                         ref="moveAnalyser"
                         liveGraphA={this.refs.liveGraphA}
-                    /> */}
-                    <KinectNotFound />
+                        recorder={this}
+                    />
+                    {/* <KinectNotFound /> */}
                 </div>
             )
         }
@@ -145,17 +187,17 @@ class KinectPreviewPage extends Component {
 
                 <Header ref="header" title="Kinect Live Preview" />
 
-                <ActionBar
+                {/* <ActionBar
                     disabled={!this.state.kinectIsConnected}
                     isRecording={this.state.isRecording}
                     frameCount={this.state.recordedFrames}
                     onRecordingToggled={this.toggleRecording}
                     onDelete={this.deleteRecordedMotion}
-                    onSave={this.saveRecordedMotion} />
+                    onSave={this.saveRecordedMotion} /> */}
 
                 {content}
 
-                <ChooseDatasetModal ref='chooseDatasetModal' header={this.refs.header} animator={this.refs.jointAnimator} />
+                {/* <ChooseDatasetModal ref='chooseDatasetModal' header={this.refs.header} animator={this.refs.jointAnimator} /> */}
 
             </Row>
         );

@@ -3,12 +3,8 @@ import React, { Component } from 'react';
 var ctx;
 var canvas;
 
-let activeJointColor = '#e03162';
-// let inActiveJointColor = '#ddd';
-// let otherColor = '#6355e0';
+let activeJointColor = '#71FEDB';
 
-let width = 400;
-let height = 333;
 var bodyFrame;
 
 let selectedJoints = [];
@@ -21,6 +17,7 @@ class JointAnimator extends Component {
             selectedJoints: [0, 1, 2, 3],
             currentJoint: 9,
         }
+        this.drawBodyFrame = this.drawBodyFrame.bind(this);
     }
 
     componentDidMount() {
@@ -42,7 +39,7 @@ class JointAnimator extends Component {
                 // if (other.includes(parseInt(jointType))) {
                 let joint = body.joints[jointType];
                 ctx.fillStyle = activeJointColor;
-                ctx.fillRect(joint.depthX * width, joint.depthY * height, 4, 4);
+                ctx.fillRect(joint.depthX * this.props.width, joint.depthY * this.props.width, 4, 4);
                 // }
                 // else if (selectedJoints.includes(parseInt(jointType))) {
                 //     let joint = body.joints[jointType];
@@ -54,7 +51,7 @@ class JointAnimator extends Component {
                 //     ctx.fillRect(joint.depthX * width, joint.depthY * height, 6, 6);
                 // }
             }
-        });
+        }.bind(this));
     }
 
     playMotion = (motion, frame) => {
@@ -84,10 +81,11 @@ class JointAnimator extends Component {
 
     render() {
         return (
-            <div title={this.props.title} className="joint-animator" >
+            <div title={this.props.title} style={{ marginRight: this.props.port ? 20 : 0, }} className="joint-animator" >
                 <canvas id="bodyCanvas"
-                    width={width.toString()}
-                    height={height.toString()} />
+                    // style={{ backgroundColor: '#0f0' }}
+                    width={this.props.width.toString()}
+                    height={this.props.width.toString()} />
             </div>
         );
     }

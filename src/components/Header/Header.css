@@ -1,16 +1,17 @@
 .header{
-    background-color: #6355e0;
+    background-color: rgba(0,0,0,0.2);
     /* background-color: rgb(124, 182, 128); */
-    height:107px;
+    height:70px;
+    padding-left: 20px;
     /* margin-bottom: 20px; */
-    padding:22px;
-    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+    /* padding:22px; */
+    box-shadow: 0 2px 4px rgba(0,0,0,0);
 }
 
 .title{
     font-size: 1.75em;
-    font-weight: 500;
-    color:#fff;
+    font-weight: 100;
+    color:rgba(255,255,255,0.6);
     float:left;
     margin-right:35px;
     margin-top:15px;

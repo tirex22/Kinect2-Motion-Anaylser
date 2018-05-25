@@ -43,7 +43,7 @@ class Header extends Component {
         }
 
         return (
-            <div style={{ width: this.state.screenWidth - 70 }} className="header" >
+            <div style={{ width: this.state.screenWidth }} className="header" >
                 <p className="title" >{this.props.title}</p>
                 {datasetSelector}
             </div>

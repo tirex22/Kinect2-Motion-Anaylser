@@ -18,11 +18,11 @@ class RouterConfig extends Component {
             <HashRouter>
                 <div className="App">
 
-                    <Navigator />
+                    {/* <Navigator /> */}
 
                     {/* <Switch> */}
 
-                    <div style={{ marginLeft: 70, }}>
+                    <div style={{ backgroundColor: '#160E23' }}>
 
                         <Route path="//" component={KinectView} />
 

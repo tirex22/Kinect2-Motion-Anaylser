@@ -1,13 +1,13 @@
 .joint-animator{
-    width: 450px;
-    height: 440px;
-    background-color: rgba(255,255,255,0.6);
+    /* width: 450px;
+    height: 440px; */
+    background-color: rgba(255,255,255,0.01);
     display:inline-block;
     vertical-align: top;
     margin:20px;
-    margin-left:-10px;
+    margin-bottom:0px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 9px 0 rgba(0, 0, 0, 0.1);
-    padding-top:30px;
+    /* padding-top:30px; */
 }
 
 .loader{
@@ -23,7 +23,7 @@
 }
 
 .action-bar{
-    background-color: #f1f1f1;
+    background-color: rgba(0,0,0,0.2);
     /* background-color: rgba(0,0,0,0.05); */
     height: 70px;
     width: 100%;
@@ -100,7 +100,7 @@
 
 .card{
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 9px 0 rgba(0, 0, 0, 0.1);
-    background-color: rgba(255,255,255,0.6);
-    padding:10px;
-    width:740px;
+    background-color: rgba(255,255,255,0.01);
+    padding:12px;
+    padding-bottom:0px;
 }

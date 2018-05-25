@@ -26,7 +26,7 @@ class LiveAnalyser extends Component {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(0,0,0,0)',
-                borderColor: '#6355e096',
+                borderColor: '#71FEDB',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
@@ -61,21 +61,24 @@ class LiveAnalyser extends Component {
     render() {
         return (
             <div className="card">
-                <Line height={368} width={770} data={this.state}
-                    options={{
-                        maintainAspectRatio: true,
-                        scales: {
-                            yAxes: [{
-                                id: 'left-y-axis',
-                                type: 'linear',
-                                position: 'left',
-                                ticks: {
-                                    min: 0,
-                                    max: 2.5,
-                                }
-                            }]
-                        }
-                    }} />
+                {this.props.height !== 0 ?
+                    <Line height={this.props.height} width={this.props.width} data={this.state}
+                        options={{
+                            scales: {
+                                yAxes: [{
+                                    id: 'left-y-axis',
+                                    type: 'linear',
+                                    position: 'left',
+                                    ticks: {
+                                        display: false,
+                                        min: 0,
+                                        max: 2.5,
+                                    }
+                                }]
+                            }
+                        }} />
+                    : null
+                }
             </div>
         );
     }
