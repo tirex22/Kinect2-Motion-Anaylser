@@ -16,7 +16,7 @@ export default class PreviewScreen extends Component {
                     <Text style={{ marginTop: 160, alignSelf: 'center', textAlign: 'center', fontWeight: '900', fontSize: 15, }} >Youssef Maged</Text>
                     <Text style={{ marginTop: 10, alignSelf: 'center', textAlign: 'center', fontWeight: '100', fontSize: 15, }} >Snatch</Text>
                 </View>
-                <StartScreen />
+                {/* <StartScreen /> */}
                 <ConnectForm />
             </ View >
         );

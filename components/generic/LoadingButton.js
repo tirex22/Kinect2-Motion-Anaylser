@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, ActivityIndicator, } from 'react-native'
 export default class LoadingButton extends Component {
     render() {
         return (
-            <TouchableOpacity activeOpacity={0.8} onPress={this.props.function}
+            <TouchableOpacity activeOpacity={0.8} onPress={this.props.onPress}
 
                 style={{
                     flexDirection: 'row',
