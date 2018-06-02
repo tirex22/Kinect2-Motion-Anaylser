@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 var ctx;
 var canvas;
 
-let activeJointColor = '#71FEDB';
+let activeJointColor = '#5d17ff';
 
 var bodyFrame;
 

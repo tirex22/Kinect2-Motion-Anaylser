@@ -22,7 +22,7 @@ class RouterConfig extends Component {
 
                     {/* <Switch> */}
 
-                    <div style={{ backgroundColor: '#160E23' }}>
+                    <div >
 
                         <Route path="//" component={KinectView} />
 

@@ -31,6 +31,7 @@ class KinectPreviewPage extends Component {
             animatorWidth: 0,
             analyzerWidth: 0,
             analyzerHeight: 0,
+            graphWidth: 0,
             port: false,
         };
 
@@ -55,7 +56,7 @@ class KinectPreviewPage extends Component {
 
     startConnection = () => {
         // Connect to kinect server
-        var socket = io.connect('192.168.0.104:8000');
+        var socket = io.connect('192.168.1.144:8000');
         socket.on('bodyFrame', function (bodyFrame) {
 
             if (!this.state.kinectIsConnected) {
@@ -91,12 +92,14 @@ class KinectPreviewPage extends Component {
                 analyzerWidth: window.innerWidth - 60,
                 analyzerHeight: window.innerHeight - window.innerWidth - 50,
                 animatorWidth: window.innerWidth - 40,
+                graphWidth: window.innerWidth - 40,
             });
         } else {
             this.setState({
                 animatorWidth: (window.innerWidth / 3) - 40,
                 analyzerWidth: (window.innerWidth) - ((window.innerWidth / 3)) - 60,
                 analyzerHeight: (window.innerWidth / 3) - 48,
+                graphWidth: (window.innerWidth / 2) - 60,
             });
         }
 
@@ -151,6 +154,7 @@ class KinectPreviewPage extends Component {
                         />
                     </div>
                     <SnatchAnalyser
+                        graphWidth={this.state.graphWidth}
                         steps={this.refs.steps}
                         ref="moveAnalyser"
                         liveGraphA={this.refs.liveGraphA}
@@ -173,6 +177,7 @@ class KinectPreviewPage extends Component {
                             height={this.state.analyzerHeight} />
                     </div>
                     <SnatchAnalyser
+                        graphWidth={this.state.graphWidth}
                         steps={this.refs.steps}
                         ref="moveAnalyser"
                         liveGraphA={this.refs.liveGraphA}
