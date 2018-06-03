@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+// import Header from './components/generic/Header';
+import PreviewScreen from './components/screens/PreviewScreen';
 import './App.css';
-import RouterConfig from './router';
+
 
 class App extends Component {
   render() {
     return (
-      <RouterConfig />
+      <div>
+        {/* <Header /> */}
+        <PreviewScreen />
+      </div>
     );
   }
 }

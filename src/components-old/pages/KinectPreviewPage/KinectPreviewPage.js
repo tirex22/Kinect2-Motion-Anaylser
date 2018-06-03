@@ -56,7 +56,7 @@ class KinectPreviewPage extends Component {
 
     startConnection = () => {
         // Connect to kinect server
-        var socket = io.connect('192.168.1.144:8000');
+        var socket = io.connect('192.168.0.104:8000');
         socket.on('bodyFrame', function (bodyFrame) {
 
             if (!this.state.kinectIsConnected) {
