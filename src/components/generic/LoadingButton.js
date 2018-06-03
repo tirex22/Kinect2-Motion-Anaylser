@@ -50,15 +50,19 @@ let styles = {
     container: {
         width: '100%',
         height: 50,
-        backgroundColor: '#70C6D1',
+        backgroundColor: '#fff',
+        // borderStyle: 'solid',
+        // borderColor: '#ddd',
+        // borderWidth: .3,
         marginTop: 20,
-        borderRadius: 5,
+        borderRadius: 25,
         alignSelf: 'center',
         alignItems: 'center',
+        boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.2)',
     },
 
     text: {
-        color: '#fff',
+        color: '#8EDEDB',
         fontSize: '1rem',
         fontWeight: '900',
         marginTop: 14,
@@ -66,7 +70,7 @@ let styles = {
 
     loading: {
         fontSize: 30,
-        color: '#fff',
+        color: '#8EDEDB',
         fontWeight: '900',
     }
 }

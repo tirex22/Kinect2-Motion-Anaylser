@@ -11,13 +11,21 @@ export default class ConnectForm extends Component {
         this.state = {
             ipAddress: '',
             connected: false,
+            visible: true,
         }
 
         this.testConnection = this.testConnection.bind(this);
+        this.hide = this.hide.bind(this);
     }
 
     componentDidMount() {
         // this.testConnection();
+    }
+
+    hide = () => {
+        setTimeout(() => {
+            this.setState({ visible: false });
+        }, 1000);
     }
 
     testConnection = () => {
@@ -30,13 +38,12 @@ export default class ConnectForm extends Component {
         }.bind(this));
 
         setTimeout(() => {
-            socket.off();
-            socket.disconnect();
             if (!this.state.connected) {
                 alert("Could not connect to " + this.state.ipAddress);
                 this.refs.loadingButton.setLoadingState(false);
             } else {
                 this.refs.loadingButton.setSuccessState(true);
+                this.hide();
                 if (this.props.onConnect) {
                     this.props.onConnect(this.state.ipAddress);
                 }
@@ -48,11 +55,11 @@ export default class ConnectForm extends Component {
 
     render() {
         return (
-            <div style={styles.container}>
+            <div style={styles.container} className={this.state.visible ? 'visible' : 'hidden'}>
                 <p className="title center">No Device Connected</p>
 
                 <p className="message center"
-                    style={{ marginBottom: 70, }}>Please enter the local IP Address of the device and click connect.</p>
+                    style={{ marginBottom: 90, }}>Please enter the local IP Address of the device and click connect.</p>
 
                 <input
                     className="text-input"
@@ -74,5 +81,7 @@ let styles = {
         paddingBottom: 30,
         width: '100%',
         maxWidth: 400,
-    }
+    },
+
+
 }
