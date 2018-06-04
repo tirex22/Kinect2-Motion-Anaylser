@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Col } from 'antd';
 
 var ctx;
 var canvas;
@@ -10,48 +11,92 @@ export default class JointAnimator extends Component {
     constructor() {
         super();
         this.state = {
-            width: 300,
-            height: 300,
+            canvasSize: 0,
+            marginLeft: 0,
         }
     }
 
     componentDidMount() {
-        canvas = document.getElementById('bodyCanvas');
-        ctx = canvas.getContext('2d');
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+
+        if (height > width) {
+
+            let canvasSize = height / 2.5;
+
+            this.setState({
+                canvasSize: canvasSize,
+                marginLeft: (width - canvasSize) / 2,
+            });
+
+            setTimeout(() => {
+                canvas = document.getElementById('bodyCanvas');
+                ctx = canvas.getContext('2d');
+            }, 50);
+
+        } else {
+
+            let canvasSize = width / 6;
+
+            this.setState({
+                canvasSize: canvasSize,
+                marginLeft: (width - (width / 6)) / 2,
+            });
+
+            setTimeout(() => {
+                canvas = document.getElementById('bodyCanvas');
+                ctx = canvas.getContext('2d');
+            }, 150);
+
+        }
+
         this.drawBodyFrame = this.drawBodyFrame.bind(this);
     }
 
     drawBodyFrame = (bodyFrame) => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        bodyFrame.bodies.forEach(function (body) {
-            for (let jointType in body.joints) {
-                let joint = body.joints[jointType];
-                ctx.fillStyle = activeJointColor;
-                ctx.fillRect(joint.depthX * this.state.width, joint.depthY * this.state.width, 4, 4);
-            }
-        }.bind(this));
+        if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bodyFrame.bodies.forEach(function (body) {
+                for (let jointType in body.joints) {
+                    let joint = body.joints[jointType];
+                    ctx.fillStyle = activeJointColor;
+                    ctx.fillRect(joint.depthX * this.state.canvasSize, joint.depthY * this.state.canvasSize, 4, 4);
+                }
+            }.bind(this));
+        }
     }
 
     render() {
         return (
-            <canvas id="bodyCanvas"
-                style={styles.container}
-                width={this.state.width.toString()}
-                height={this.state.width.toString()} />
+            <div>
+                {
+                    this.state.canvasSize === 0 ? null :
+                        <div>
+                            <p style={{ textAlign: 'center', fontWeight: '900', color: '#85CED1', margin: 0, marginTop: 20, fontSize: '1rem' }} >
+                                Kinect Preview
+                                </p>
+                            <canvas id="bodyCanvas"
+                                className="visible"
+                                style={{
+                                    height: this.state.canvasSize,
+                                    width: this.state.canvasSize,
+                                    borderRadius: this.state.canvasSize / 2,
+                                    marginLeft: this.state.marginLeft,
+                                    backgroundColor: '#fff',
+                                    borderStyle: 'solid',
+                                    borderWidth: 15,
+                                    borderColor: '#f7f7f7',
+                                    boxShadow: '0px 0px 50px 0px rgba(0, 0, 0, 0.20)',
+                                    marginTop: 20,
+                                    alignSelf: 'center',
+                                    marginBottom: 10,
+                                }}
+                                width={this.state.canvasSize.toString()}
+                                height={this.state.canvasSize.toString()} />
+                        </div>
+                }
+            </div>
         );
-    }
-}
-
-let styles = {
-    container: {
-        height: 300,
-        width: 300,
-        backgroundColor: '#fff',
-        borderRadius: 150,
-        borderStyle: 'solid',
-        borderWidth: 15,
-        borderColor: '#f7f7f7',
-        boxShadow: '0px 0px 40px 0px rgba(0, 0, 0, 0.2)',
-        marginTop: 20,
     }
 }

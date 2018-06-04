@@ -48,7 +48,7 @@ export default class ConnectForm extends Component {
                     this.props.onConnect(this.state.ipAddress);
                 }
             }
-        }, 3000);
+        }, 2000);
     }
 
 
@@ -63,7 +63,7 @@ export default class ConnectForm extends Component {
 
                 <input
                     className="text-input"
-                    type="text" onChange={(event) => this.setState({ ipAddress: event.target.value + ":8000" })}
+                    type="text" onChange={(event) => this.setState({ ipAddress: event.target.value + ':8000' })}
                 />
 
                 <LoadingButton ref="loadingButton" text="Connect" onClick={() => this.testConnection()} />
@@ -76,7 +76,7 @@ export default class ConnectForm extends Component {
 let styles = {
     container: {
         alignSelf: 'center',
-        padding: 20,
+        padding: 40,
         paddingTop: 30,
         paddingBottom: 30,
         width: '100%',

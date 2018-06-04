@@ -3,6 +3,7 @@ import { Row } from 'antd';
 
 import ConnectForm from '../generic/ConnectForm';
 import JointAnimator from '../generic/JointAnimator';
+import LiveGraph from '../generic/LiveGraph';
 
 const io = require('socket.io-client');
 
@@ -17,7 +18,7 @@ export default class PreviewScreen extends Component {
     }
 
     componentDidMount() {
-        // this.onConnect('192.168.0.104:8000');
+        this.onConnect('192.168.0.104:8000');
     }
 
     onConnect = (ipAddress) => {
@@ -31,18 +32,21 @@ export default class PreviewScreen extends Component {
         var socket = io.connect(ipAddress);
         socket.on('bodyFrame', function (bodyFrame) {
             this.refs.jointAnimator.drawBodyFrame(bodyFrame);
+            this.refs.liveGraph.addBodyFrame(bodyFrame);
         }.bind(this));
     }
 
     render() {
         return (
             <div>
-                <Row type="flex" justify="center" style={{
-                    padding: 20,
+                <Row type='flex' justify="center" style={{
                     minHeight: window.innerHeight,
                 }}>
                     {this.state.connected ?
-                        <JointAnimator ref="jointAnimator" />
+                        <div>
+                            <JointAnimator ref="jointAnimator" />
+                            <LiveGraph ref="liveGraph" />
+                        </div>
                         :
                         <ConnectForm onConnect={(ipAddress) => this.onConnect(ipAddress)} />
                     }

@@ -13,7 +13,7 @@ export default class Header extends Component {
 let styles = {
     container: {
         height: 70,
-        boxShadow: '0 2px 3px 0 rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 0px 15px 0 rgba(0, 0, 0, 0.1)'
     }
 }
 
