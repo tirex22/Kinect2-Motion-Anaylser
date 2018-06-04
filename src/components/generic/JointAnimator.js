@@ -88,7 +88,7 @@ export default class JointAnimator extends Component {
                                     borderWidth: 15,
                                     borderColor: '#f7f7f7',
                                     boxShadow: '0px 0px 50px 0px rgba(0, 0, 0, 0.20)',
-                                    marginTop: 20,
+                                    marginTop: 10,
                                     alignSelf: 'center',
                                     marginBottom: 10,
                                 }}

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Line, defaults } from 'react-chartjs-2';
 import { Col } from 'antd';
 import { getMovementLevel } from '../Processing/FeatureExtractor';
+import { Smooth } from '../Processing/Smooth';
+Smooth.METHOD_CUBIC = 'cubic'
 
 defaults.global.animation = false;
 
-const divs = 80;
+const divs = 100;
 
 let bodyFrames = [];
 let emptyLables = [];
@@ -29,15 +31,16 @@ export default class LiveGraph extends Component {
                 label: 'Motion Level',
                 data: zeroValues,
                 fill: true,
-                lineTension: .01,
+                lineTension: 0,
                 backgroundColor: '#F5FBFB',
-                borderColor: '#B9E6DF',
+                borderColor: '#85CED1',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 pointBackgroundColor: '#fff',
-                pointRadius: 1,
+                pointRadius: 0,
                 pointHitRadius: 0,
+                cubicInterpolationMode: 'default',
             }]
         }
         this.addData = this.addData.bind(this);
@@ -51,7 +54,7 @@ export default class LiveGraph extends Component {
 
         if (height > width) {
 
-            graphHeight = height - (height / 3) - 210;
+            graphHeight = (height - (height / 3)) - 250;
 
             this.setState({
                 width: width,
@@ -64,7 +67,7 @@ export default class LiveGraph extends Component {
 
             this.setState({
                 width: width,
-                height: height - (width / 6) - 210,
+                height: height - (width / 6) - 270,
             });
         }
 
@@ -111,8 +114,40 @@ export default class LiveGraph extends Component {
         //         value = lastPoint - 0.05;
         //     }
         // }
+
+        let avg0 = 0;
+        let avg1 = 0;
+        let avg2 = 0;
+        let avg3 = 0;
+
+
+        // let lastPoint = dataFile[dataFile.length - 1];
+        // if (lastPoint < value) {
+        //     avg0 = (value + lastPoint) / 8;
+        //     avg1 = (value + lastPoint) / 6;
+        //     avg2 = (value + lastPoint) / 4;
+        //     avg3 = (value + lastPoint) / 2;
+        // } else {
+        //     avg0 = (value + lastPoint) / 2;
+        //     avg1 = (value + lastPoint) / 4;
+        //     avg2 = (value + lastPoint) / 6;
+        //     avg3 = (value + lastPoint) / 8;
+        // }
+        // dataFile.push(avg0)
+        // dataFile.push(avg1)
+        // dataFile.push(avg2);
+        // dataFile.push(avg3);
+
         dataFile.push(value);
         // dataFile = this.smoothOut(dataFile,0.5);
+        // let smoothed = Smooth(dataFile);
+        // for (let i = 1; i <= dataFile.length; i++) {
+        //     dataFile[i] = smoothed(i);
+        //     if (i === dataFile.length) {
+        //         alert("ll");
+        //     }
+        // }
+
         newData[0].data = dataFile.slice(Math.max(dataFile.length - divs, 1))
         // console.log(newData);
         this.setState({ datasets: newData });
@@ -160,10 +195,13 @@ export default class LiveGraph extends Component {
                     <Line
                         height={this.state.height}
                         width={this.state.width} data={this.state}
+                        cubicInterpolationMode={'monotone'}
                         options={{
+                            bezierCurve: true,
                             legend: {
                                 display: false
                             },
+                            cubicInterpolationMode: 'default',
                             scales: {
                                 yAxes: [{
                                     gridLines: {

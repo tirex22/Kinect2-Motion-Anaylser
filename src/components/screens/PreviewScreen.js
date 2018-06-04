@@ -4,6 +4,7 @@ import { Row } from 'antd';
 import ConnectForm from '../generic/ConnectForm';
 import JointAnimator from '../generic/JointAnimator';
 import LiveGraph from '../generic/LiveGraph';
+import OptionButton from '../generic/OptionButton';
 
 const io = require('socket.io-client');
 
@@ -46,6 +47,8 @@ export default class PreviewScreen extends Component {
                         <div>
                             <JointAnimator ref="jointAnimator" />
                             <LiveGraph ref="liveGraph" />
+                            <OptionButton title='User' option='Youssef Maged' />
+                            <OptionButton title='Move' option='Olympic Snatch' />
                         </div>
                         :
                         <ConnectForm onConnect={(ipAddress) => this.onConnect(ipAddress)} />
