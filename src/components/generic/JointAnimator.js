@@ -57,13 +57,16 @@ export default class JointAnimator extends Component {
     drawBodyFrame = (bodyFrame) => {
         if (ctx) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            bodyFrame.bodies.forEach(function (body) {
-                for (let jointType in body.joints) {
-                    let joint = body.joints[jointType];
-                    ctx.fillStyle = activeJointColor;
-                    ctx.fillRect(joint.depthX * this.state.canvasSize, joint.depthY * this.state.canvasSize, 4, 4);
-                }
+            bodyFrame.forEach(function (joint) {
+                ctx.fillStyle = activeJointColor;
+                ctx.fillRect(joint.depthX * this.state.canvasSize, joint.depthY * this.state.canvasSize, 4, 4);
             }.bind(this));
+        }
+    }
+
+    clear = () => {
+        if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
 
@@ -88,7 +91,7 @@ export default class JointAnimator extends Component {
                                     borderWidth: 15,
                                     borderColor: '#f7f7f7',
                                     boxShadow: '0px 0px 50px 0px rgba(0, 0, 0, 0.20)',
-                                    marginTop: 10,
+                                    marginTop: 15,
                                     alignSelf: 'center',
                                     marginBottom: 10,
                                 }}

@@ -20,7 +20,7 @@ export default class LiveGraph extends Component {
 
         for (let i = 0; i < divs; i++) {
             emptyLables.push("");
-            zeroValues.push(0);
+            zeroValues.push(1);
         }
 
         this.state = {
@@ -54,7 +54,7 @@ export default class LiveGraph extends Component {
 
         if (height > width) {
 
-            graphHeight = (height - (height / 3)) - 250;
+            graphHeight = (height - (height / 3)) - 235;
 
             this.setState({
                 width: width,
@@ -154,19 +154,10 @@ export default class LiveGraph extends Component {
     }
 
     addBodyFrame = (bodyFrame) => {
-        let newBodyFrame = [];
-        bodyFrame.bodies.forEach(function (body) {
-            for (let jointType in body.joints) {
-                let joint = body.joints[jointType];
-                newBodyFrame[jointType] = joint;
-            }
-        });
-        if (newBodyFrame[0] && newBodyFrame[0].cameraY) {
-            bodyFrames.push(newBodyFrame);
-            if (bodyFrames.length > 1) {
-                let motionLevel = getMovementLevel(bodyFrames[bodyFrames.length - 1], bodyFrames[bodyFrames.length - 2]);
-                this.addData(motionLevel);
-            }
+        bodyFrames.push(bodyFrame);
+        if (bodyFrames.length > 1) {
+            let motionLevel = getMovementLevel(bodyFrames[bodyFrames.length - 1], bodyFrames[bodyFrames.length - 2]);
+            this.addData(motionLevel);
         }
     }
 
