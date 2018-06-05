@@ -11,7 +11,7 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #fff;
   height: 150px;
   padding: 20px;
   color: white;
@@ -25,9 +25,58 @@
   font-size: large;
 }
 
-body{
-  background-color: #111
+.center{
+  text-align: center;
 }
+
+.title{
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: rgb(49, 59, 73);
+  margin:5px;
+}
+
+.message{
+  margin:0;
+  color:rgba(36, 43, 53, 0.829);
+}
+
+.text-input{
+  color: rgb(49, 59, 73);
+  font-size:1.2rem;
+  font-weight: 100;
+  border:none;
+  border-bottom: solid;
+  border-bottom-color: rgba(49, 59, 73, 1);
+  border-bottom-width: .1px;
+  width:100%;
+  text-align: center;
+  border-radius: 0;
+}
+
+.text-input:focus {
+  outline: none;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .2s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s .2s, 
+  opacity .2s linear;
+}
+
+
+body{
+  background-color: #fff;
+}
+
+.progressbar .CircularProgressbar-background { fill: green; }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

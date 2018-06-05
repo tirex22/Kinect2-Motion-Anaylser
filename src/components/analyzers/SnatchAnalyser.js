@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { getYDistance, getZDistance, getMovementLevel, getAngle } from '../Functions/FeatureExtractor';
-import LineChart from './LineChart';
+import { getYDistance, getZDistance, getMovementLevel, getAngle } from '../Processing/FeatureExtractor';
 
-
-let ref = require('../Functions/motion.json');
 let motion = [];
 let motion2 = [];
 let barAnkleYDists = [];
@@ -15,8 +12,6 @@ class SnatchAnalyser extends Component {
         this.state = {
             step: 0,
             graphs: false,
-            barLevel_ref: [],
-            kneeAngle_ref: [],
         }
         this.getBarLevel = this.getBarLevel.bind(this);
         this.updateSnatchStep = this.updateSnatchStep.bind(this);
@@ -49,26 +44,13 @@ class SnatchAnalyser extends Component {
     }
 
     componentWillMount() {
-        this.getBarLevel(ref, true);
-        this.getBarBodyDist(ref, true);
-        this.getKneeAngle(ref, true);
+
     }
 
-    addFrame = (bodyFrame) => {
-        let newBodyFrame = {};
-        bodyFrame.bodies.forEach(function (body) {
-            for (let jointType in body.joints) {
-                let joint = body.joints[jointType];
-                newBodyFrame[jointType] = joint;
-            }
-        });
-
-        if (newBodyFrame[0] && newBodyFrame[0].cameraY) {
-            motion.push(bodyFrame);
-            motion2.push(newBodyFrame);
-            this.getMovementLevel();
-            this.updateSnatchStep(newBodyFrame);
-        }
+    addBodyFrame = (bodyFrame) => {
+        motion.push(bodyFrame);
+        motion2.push(bodyFrame);
+        this.updateSnatchStep(bodyFrame);
     }
 
     updateSnatchStep(bodyFrame) {
@@ -94,6 +76,9 @@ class SnatchAnalyser extends Component {
                 if (correctStance) {
                     // this.props.steps.setStep(1);
                     this.setState({ step: 1 });
+                    this.props.onProgress(20);
+                    // alert("0");
+                    return;
                 }
             }
         }
@@ -101,8 +86,11 @@ class SnatchAnalyser extends Component {
 
     checkFirstPull(bodyFrame) {
         if (bodyFrame[10].cameraY > bodyFrame[16].cameraY) {
+            console.log(bodyFrame[10].cameraY - bodyFrame[16].cameraY);
             // this.props.steps.setStep(2);
             this.setState({ step: 2 });
+            this.props.onProgress(40);
+            // alert("1");
         }
         return;
     }
@@ -111,6 +99,8 @@ class SnatchAnalyser extends Component {
         if (bodyFrame[10].cameraY > bodyFrame[8].cameraY) {
             // this.props.steps.setStep(3);
             this.setState({ step: 3 });
+            this.props.onProgress(60);
+            // alert("2");
         }
         return;
     }
@@ -120,12 +110,8 @@ class SnatchAnalyser extends Component {
         if (dist < 0.37) {
             // this.props.steps.setStep(4);
             this.setState({ step: 4 });
-            this.compressMotionModel(motion, (compressed) => {
-                console.log(compressed);
-                this.getBarLevel(compressed, false);
-                this.getBarBodyDist(compressed, false);
-                this.getKneeAngle(compressed, false);
-            })
+            this.props.onProgress(80);
+            // alert("3");
         }
         return;
     }
@@ -204,25 +190,26 @@ class SnatchAnalyser extends Component {
 
     render() {
         return (
-            this.state.graphs ?
-                <div style={{ paddingLeft: 17, }}>
-                    <LineChart width={this.props.graphWidth}
-                        data1={this.state.barLevel}
-                        data2={this.state.barLevel_ref}
-                    />
+            null
+            // this.state.graphs ?
+            //     <div style={{ paddingLeft: 17, }}>
+            //         <LineChart width={this.props.graphWidth}
+            //             data1={this.state.barLevel}
+            //             data2={this.state.barLevel_ref}
+            //         />
 
-                    <LineChart width={this.props.graphWidth}
-                        data1={this.state.barDist}
-                        data2={this.state.barDist_ref}
-                    />
+            //         <LineChart width={this.props.graphWidth}
+            //             data1={this.state.barDist}
+            //             data2={this.state.barDist_ref}
+            //         />
 
-                    <LineChart width={this.props.graphWidth}
-                        data1={this.state.kneeAngle}
-                        data2={this.state.kneeAngle_ref}
-                    />
+            //         <LineChart width={this.props.graphWidth}
+            //             data1={this.state.kneeAngle}
+            //             data2={this.state.kneeAngle_ref}
+            //         />
 
-                </div>
-                : null
+            //     </div>
+            //     : null
         );
     }
 }
